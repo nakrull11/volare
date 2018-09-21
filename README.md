@@ -3,7 +3,7 @@
 <h3>Team:</h3>
 <ul>
   <li><a href="https://www.github.com/franncode">@franncode</a></li>
-  <li>@nakrull11</li>
+  <li><a href="https://www.github.com/nakrull11">@nakrull11</li>
   <li>@Barbara Rey</li>
-  <li>@Micaela Quiroga</li>
+  <li><a href="https://www.github.com/micaelaquiroga">@micaelaquiroga</li>
 </ul>
