@@ -1,7 +1,9 @@
-## Proyect Programadores 3.0
+<h1>Proyect Programadores 3.0</h1>
 
-Team:
-@franncode
-@nakrull11
-@
-@
+<h3>Team:</h3>
+<ul>
+  <li>@franncode<li>
+  <li>@nakrull11<li>
+  <li>@Barbara Rey</li>
+  <li>@Micaela Quiroga</li>
+</ul>
