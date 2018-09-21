@@ -2,8 +2,8 @@
 
 <h3>Team:</h3>
 <ul>
-  <li>@franncode<li>
-  <li>@nakrull11<li>
+  <li>@franncode</li>
+  <li>@nakrull11</li>
   <li>@Barbara Rey</li>
   <li>@Micaela Quiroga</li>
 </ul>
