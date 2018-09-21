@@ -2,7 +2,7 @@
 
 <h3>Team:</h3>
 <ul>
-  <li>@franncode</li>
+  <li><a href="github.com/franncode">@franncode</a></li>
   <li>@nakrull11</li>
   <li>@Barbara Rey</li>
   <li>@Micaela Quiroga</li>
