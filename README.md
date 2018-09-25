@@ -1,4 +1,4 @@
-<h1>Volaré/h1>
+<h1>Volaré</h1>
 <p>Flight management Java application</p>
 
 <h3>:fire: Team:</h3>
