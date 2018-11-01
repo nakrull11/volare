@@ -39,11 +39,17 @@ public Representante(int credencial, String nombre, String apellido,int dni, Str
 }
 
     public void crearVuelo(float precioVuelo, Date fechaSalida, Date fechaLlegada,Aeropuerto aeropuertoSalida,Aeropuerto aeropuertoLlegada,Avion unAvion){
-        
+       Vuelo nuevoVuelo = new Vuelo();
+       nuevoVuelo.setPrecio(precioVuelo);
+       nuevoVuelo.setFechaSalida(fechaSalida);
+       nuevoVuelo.setFechaLlegada(fechaLlegada);
+       nuevoVuelo.setAeropuertoSalida(aeropuertoSalida);
+       nuevoVuelo.setAeropuertoLlegada(aeropuertoLlegada);
+       nuevoVuelo.setAvion(unAvion);
     }
     
-    public void modificarVuelo(){
-    
+    public void modificarVuelo(Vuelo vuelo,Estado estado){
+       vuelo.setEstado(estado);
     }
     
     public List<Pasajero> consultarCliente(){
