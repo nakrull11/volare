@@ -7,9 +7,12 @@ package volare;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import volare.modelo.Aerolinea;
 import volare.modelo.Conexion;
+import volare.modelo.Data;
 import volare.modelo.Pais;
 import volare.modelo.PaisData;
+import volare.modelo.Representante;
 
 /**
  *
@@ -24,39 +27,42 @@ public class Volare {
         
         Conexion conexion;
         PaisData paisData = null;
+        Data data=null;
         Pais pais;
+        Representante gustavo;
     
        try {
             conexion = new Conexion("jdbc:mysql://localhost/volare", "root", "");
-            paisData = new PaisData(conexion);
+            data = new Data(conexion);
+            //paisData = new PaisData(conexion);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Volare.class.getName()).log(Level.SEVERE, null, ex);
         }
        
-       pais = new Pais("UR","Uruguay");
+       //pais = new Pais("PE","Peru");
        
        //AGREGAR PAISES
-       paisData.agregarPais(pais);
+       //data.agregarPais(pais);
        
        //MOSTAR PAISES
-       System.out.println(paisData.buscarPais(2).toString());
+       //System.out.println(paisData.buscarPais(2).toString());
        
        //BORRAR PAISES
-       //paisData.borrarPais(3);
+       //data.borrarPais(5);
+       
+       //BUSCAR PAIS
+       //System.out.println(data.buscarPais(1));
        
        //LISTA DE PAISES
-       System.out.println(paisData.obtenerPaises());
-       pais.setCodigo("PR");
-       pais.setNombre("Paraguay");
-       pais.setId(4);
+       //System.out.println(paisData.obtenerPaises());
+       
        //ACTULIZAR PAISES
-       paisData.actualizarPais(pais);
+       //pais.setCodigo("PE");
+       //pais.setNombre("Peru");
+       //pais.setId(6);
+       //data.actualizarPais(pais,5,"CH","Chile");
        
-       
-        
-    
-         
-        
+          
     }
         
         

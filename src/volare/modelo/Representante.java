@@ -47,12 +47,12 @@ public Representante(int credencial, String nombre, String apellido,int dni, Str
        nuevoVuelo.setAeropuertoLlegada(aeropuertoLlegada);
        nuevoVuelo.setAvion(unAvion);
     }
-    
+    /*
     public void modificarVuelo(Vuelo vuelo,Estado estado){
        vuelo.setEstado(estado);
-    }
+    }*/
     
-    public List<Pasajero> consultarCliente(){
+    /*public List<Pasajero> consultarCliente(){
         ////Se crea la lista de pasajeros
         List<Pasajero> pasajeros = new ArrayList<Pasajero>();
             try {            
@@ -71,7 +71,7 @@ public Representante(int credencial, String nombre, String apellido,int dni, Str
                 System.out.println("Error al obtener la lista de pasajeros: " + ex.getMessage());
         }
         return pasajeros;
-        }
+        }*/
     
     
     
