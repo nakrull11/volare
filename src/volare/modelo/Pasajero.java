@@ -95,7 +95,12 @@ public int getPasaporte() {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+  public void modificarCompra (Compra compraHecha) {
+      compraHecha.setId(-1);
+      compraHecha.setFechaReserva(null);
+      compraHecha.setPasajero(null);
+      compraHecha.setNumeroAsiento(null);
+  }  
 }
   
 
