@@ -27,25 +27,57 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        buttonHome = new javax.swing.JLabel();
+        hoverHome = new javax.swing.JLabel();
+        buttonBuscar = new javax.swing.JLabel();
+        hoverBuscar = new javax.swing.JLabel();
+        buttonCompras = new javax.swing.JLabel();
+        hoverCompras = new javax.swing.JLabel();
+        buttonOfertas = new javax.swing.JLabel();
+        hoverOfertas = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/Wall.png"))); // NOI18N
+        buttonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/home.png"))); // NOI18N
+        buttonHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttonHomeMouseEntered(evt);
+            }
+        });
+        getContentPane().add(buttonHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
-        );
+        hoverHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
+        getContentPane().add(hoverHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 146, -1, -1));
+
+        buttonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/buscar.png"))); // NOI18N
+        getContentPane().add(buttonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+
+        hoverBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
+        getContentPane().add(hoverBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 233, -1, -1));
+
+        buttonCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/compras.png"))); // NOI18N
+        getContentPane().add(buttonCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+
+        hoverCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
+        getContentPane().add(hoverCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 323, -1, -1));
+
+        buttonOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/ofertas.png"))); // NOI18N
+        getContentPane().add(buttonOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, -1, -1));
+
+        hoverOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
+        getContentPane().add(hoverOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, -1, -1));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/background.png"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHomeMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonHomeMouseEntered
 
     /**
      * @param args the command line arguments
@@ -83,6 +115,14 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel background;
+    private javax.swing.JLabel buttonBuscar;
+    private javax.swing.JLabel buttonCompras;
+    private javax.swing.JLabel buttonHome;
+    private javax.swing.JLabel buttonOfertas;
+    private javax.swing.JLabel hoverBuscar;
+    private javax.swing.JLabel hoverCompras;
+    private javax.swing.JLabel hoverHome;
+    private javax.swing.JLabel hoverOfertas;
     // End of variables declaration//GEN-END:variables
 }
