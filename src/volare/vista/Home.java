@@ -5,6 +5,8 @@
  */
 package volare.vista;
 
+import java.util.Locale;
+
 /**
  *
  * @author Francisco
@@ -16,6 +18,7 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -35,9 +38,13 @@ public class Home extends javax.swing.JFrame {
         hoverCompras = new javax.swing.JLabel();
         buttonOfertas = new javax.swing.JLabel();
         hoverOfertas = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         background = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/home.png"))); // NOI18N
@@ -69,8 +76,28 @@ public class Home extends javax.swing.JFrame {
         hoverOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
         getContentPane().add(hoverOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, -1, -1));
 
+        jTextField1.setBackground(new java.awt.Color(155, 89, 182));
+        jTextField1.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setText("Contraseña");
+        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(99, 64, 113)));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 440, 50));
+
+        jTextField2.setBackground(new java.awt.Color(155, 89, 182));
+        jTextField2.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField2.setText("Correo Electronico");
+        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(99, 64, 113)));
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 440, 50));
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/background.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 800, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,6 +105,10 @@ public class Home extends javax.swing.JFrame {
     private void buttonHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHomeMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonHomeMouseEntered
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,7 +121,7 @@ public class Home extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -124,5 +155,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel hoverCompras;
     private javax.swing.JLabel hoverHome;
     private javax.swing.JLabel hoverOfertas;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
