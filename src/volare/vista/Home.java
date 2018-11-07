@@ -41,6 +41,7 @@ public class Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         textFieldCorreoElectronico = new javax.swing.JTextField();
         textFieldConstrasenia = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
@@ -100,6 +101,14 @@ public class Home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(textFieldConstrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 440, 50));
+
+        jButton1.setBackground(new java.awt.Color(99, 64, 113));
+        jButton1.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Entrar");
+        jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 460, 180, 60));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/background.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -161,6 +170,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel hoverCompras;
     private javax.swing.JLabel hoverHome;
     private javax.swing.JLabel hoverOfertas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField textFieldConstrasenia;
