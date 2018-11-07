@@ -38,8 +38,9 @@ public class Home extends javax.swing.JFrame {
         hoverCompras = new javax.swing.JLabel();
         buttonOfertas = new javax.swing.JLabel();
         hoverOfertas = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        textFieldCorreoElectronico = new javax.swing.JTextField();
+        textFieldConstrasenia = new javax.swing.JTextField();
         background = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
@@ -76,24 +77,29 @@ public class Home extends javax.swing.JFrame {
         hoverOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
         getContentPane().add(hoverOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(155, 89, 182));
-        jTextField1.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("Contraseña");
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(99, 64, 113)));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/userIcon.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, -1, -1));
+
+        textFieldCorreoElectronico.setBackground(new java.awt.Color(155, 89, 182));
+        textFieldCorreoElectronico.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        textFieldCorreoElectronico.setForeground(new java.awt.Color(255, 255, 255));
+        textFieldCorreoElectronico.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldCorreoElectronico.setText("Correo Electronico");
+        textFieldCorreoElectronico.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(255, 255, 255)));
+        getContentPane().add(textFieldCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 440, 50));
+
+        textFieldConstrasenia.setBackground(new java.awt.Color(155, 89, 182));
+        textFieldConstrasenia.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
+        textFieldConstrasenia.setForeground(new java.awt.Color(255, 255, 255));
+        textFieldConstrasenia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textFieldConstrasenia.setText("Contraseña");
+        textFieldConstrasenia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(255, 255, 255)));
+        textFieldConstrasenia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                textFieldConstraseniaActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 440, 50));
-
-        jTextField2.setBackground(new java.awt.Color(155, 89, 182));
-        jTextField2.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setText("Correo Electronico");
-        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(99, 64, 113)));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 440, 50));
+        getContentPane().add(textFieldConstrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 440, 50));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/background.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -106,9 +112,9 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonHomeMouseEntered
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void textFieldConstraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldConstraseniaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_textFieldConstraseniaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,8 +161,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel hoverCompras;
     private javax.swing.JLabel hoverHome;
     private javax.swing.JLabel hoverOfertas;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField textFieldConstrasenia;
+    private javax.swing.JTextField textFieldCorreoElectronico;
     // End of variables declaration//GEN-END:variables
 }
