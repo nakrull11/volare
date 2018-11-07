@@ -27,7 +27,6 @@ public class Representante {
     private int dni;
     private String password;
     private Aerolinea empleador;
-    private Connection connection;
     
 public Representante(int credencial, String nombre, String apellido,int dni, String password, Aerolinea empleador) {
         this.credencial = credencial;

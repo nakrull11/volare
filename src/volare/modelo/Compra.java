@@ -14,6 +14,7 @@ public class Compra {
     private Pasajero pasajero;
     private Asiento numeroAsiento;
     private float precio;
+    private Estado estado;
 
     public int getId() {
         return id;
