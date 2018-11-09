@@ -185,17 +185,15 @@ public class Data {
 ////////////////////////////////////////////////////////////////////////////////
 
   ////////////////////////////////METODOS TABLA PASAJEROS///////////////////////
-     public void modificarCompra (Compra compraHecha, int dni) {
-             compraHecha.setId(-1);
-             compraHecha.setFechaReserva(null);
-             compraHecha.setPasajero(null);
-             compraHecha.setNumeroAsiento(null);
+     public void modificarCompra (Compra compraHecha, int dni) {            
+         Estado reembolso = new Estado ();
+         reembolso.setDisponibilidad("Reembolsado");
+         compraHecha.setEstado(reembolso);
          try {
-            
-             
-             String sql= ("DELETE * FROM compra WHERE dni_pasajero= ?;");
+             String sql= ("UPDATE compra SET estado_compra= ? WHERE dni_pasajero= ?;");
              PreparedStatement ps= connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-             ps.setInt(1, dni);
+             ps.setString(1, reembolso.getDisponibilidad());
+             ps.setInt(2, dni);
              ps.executeUpdate();
              ps.close();
              System.out.println("la compra ha sido cancelada con exito");

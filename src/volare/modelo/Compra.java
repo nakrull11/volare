@@ -15,6 +15,14 @@ public class Compra {
     private Asiento numeroAsiento;
     private float precio;
     private Estado estado;
+    
+    public void setEstado(Estado estado){
+        this.estado=estado;
+    }
+    
+    public Estado getEstado(){
+        return estado;
+    }
 
     public int getId() {
         return id;
