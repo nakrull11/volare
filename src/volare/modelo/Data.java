@@ -200,5 +200,29 @@ public class Data {
          } catch (SQLException ex) {
             System.out.println("se ha produccido un error al modificar la compra");
          }
-     }   
+     }  
+     
+     public List<Compra> consultarCompra(Pasajero pasajero){
+            List <Compra> listaCompras = new ArrayList<> ();//Se crea la lista vacia para guardar las compras
+         try {
+             String sql = "SELECT * FROM compra WHERE dni_pasajero ="+" "+pasajero.getDni()+";";
+
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery();
+             Compra compra;
+             while(rs.next()){
+                 Compra unacompra= new Compra();
+                 unacompra.setFechaReserva(rs.getDate("fecha_reserva"));
+                 unacompra.setPasajero(pasajero);
+             }
+             ps.executeUpdate();
+             
+             ps.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener la lista de compras");
+         }
+         
+         return listaCompras;
+     }
+     
 }
