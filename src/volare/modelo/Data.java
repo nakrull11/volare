@@ -224,5 +224,51 @@ public class Data {
          
          return listaCompras;
      }
+  
      
-}
+     public List<Compra> consultarCompra(Pasajero pasajero, int mes){
+            List <Compra> listaComprasDelMes = new ArrayList<> ();//Se crea la lista vacia para guardar las compras del mes
+         try {
+             String sql = "SELECT * FROM compra WHERE dni_pasajero ="+" "+pasajero.getDni()+";";
+
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery();
+             Compra compra;
+             while(rs.next()){
+                 Compra unacompra= new Compra();
+                 unacompra.setFechaReserva(rs.getDate("fecha_reserva"));
+                 unacompra.setPasajero(pasajero);
+             }
+             ps.executeUpdate();
+             
+             ps.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener la lista de compras");
+         }
+         
+         return listaComprasDelMes;
+     }
+public List<Compra> consultarCompra(Pasajero pasajero, Data FechaInicio, Data fechaFinal){
+            List <Compra> listaComprasDeUnaFecha = new ArrayList<> ();//Se crea la lista vacia para guardar las compras de una fecha ha otra
+         try {
+             String sql = "SELECT * FROM compra WHERE dni_pasajero ="+" "+pasajero.getDni()+";";
+
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery();
+             Compra compra;
+             while(rs.next()){
+                 Compra unacompra= new Compra();
+                 unacompra.setFechaReserva(rs.getDate("fecha_reserva"));
+                 unacompra.setPasajero(pasajero);
+             }
+             ps.executeUpdate();
+             
+             ps.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener la lista de compras");
+         }
+         
+         return listaComprasDeUnaFecha;
+   }
+  }
+
