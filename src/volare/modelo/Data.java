@@ -182,9 +182,40 @@ public class Data {
              System.out.println("Ocurrio un error al modificar el estado: " + ex.getMessage());;
          }
     }
+     
+     public List<Vuelo> consultarVuelo(Aerolinea aerolinea){
+        ////Se crea la lista de vuelo
+        List<Vuelo> vuelo = new ArrayList<Vuelo>();
+            try {            
+                String sql = "SELECT * FROM vuelo WHERE nombre_aerolinea="+" "+aerolinea.getNombre()+";";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+               
+            statement.close();
+           }catch (SQLException ex) {
+                System.out.println("sin vuelos disponibles  " + ex.getMessage());
+        }
+        return vuelo;
+     }
+     
+     public List<Vuelo> consultarVuelo(Aerolinea aerolinea,Ciudad ciudadDestino){
+        ////Se crea la lista de vuelo
+        List<Vuelo> vuelo = new ArrayList<Vuelo>();
+            try {            
+                String sql = "SELECT * FROM vuelo * WHERE nombre_aerolinea ="+" "+aerolinea.getNombre()+" "+"AND id_aeropuerto_llegada="+" "+ciudadDestino.getId()+";";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet rs = statement.executeQuery();
+               
+            statement.close();
+           }catch (SQLException ex) {
+                System.out.println("sin vuelos disponibles  " + ex.getMessage());
+        }
+        return vuelo;
+        
+    }
 ////////////////////////////////////////////////////////////////////////////////
 
-  ////////////////////////////////METODOS TABLA PASAJEROS////////////////////////
+///////////////////////////////////METODOS TABLA PASAJEROS//////////////////////
      public void modificarCompra (Compra compraHecha, int dni) {            
          Estado reembolso = new Estado ();
          reembolso.setDisponibilidad("Reembolsado");
@@ -270,5 +301,7 @@ public List<Compra> consultarCompra(Pasajero pasajero, Data FechaInicio, Data fe
          
          return listaComprasDeUnaFecha;
    }
+
+
   }
 

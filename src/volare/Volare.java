@@ -19,7 +19,7 @@ import volare.modelo.Representante;
  * @author franncode <github.com/franncode>
  */
 public class Volare {
-
+    
     /**
      * @param args the command line arguments
      */
@@ -30,7 +30,7 @@ public class Volare {
         Data data=null;
         Pais pais;
         Representante gustavo;
-    
+        
        try {
             conexion = new Conexion("jdbc:mysql://localhost/volare", "root", "");
             data = new Data(conexion);
