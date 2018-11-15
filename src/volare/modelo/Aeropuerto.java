@@ -19,6 +19,15 @@ public class Aeropuerto {
         this.codigo = codigo;
         this.ciudad = ciudad;
     }
+    
+    public Aeropuerto(){
+        
+    }
+    
+    @Override
+    public String toString(){
+        return id+"-"+codigo+"-"+ciudad;
+    }
 
     public int getId() {
         return id;

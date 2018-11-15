@@ -31,6 +31,268 @@ public class Data {
          }
      }
      
+////////////////////////METODOS TABLA AEROLINEA/////////////////////////////////
+     public void agregarAerolinea (Aerolinea aerolinea){
+         try {
+             String sql= "INSERT INTO aerolinea (cuit_aerolinea, nombre_aerolinea) VALUES ( ? , ? );";
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);             
+             statement.setInt(1, aerolinea.getCuit());
+             statement.setString(2, aerolinea.getNombre());
+             statement.executeUpdate();
+             statement.close();
+             System.out.println("Se guardo"+" "+ aerolinea.getNombre()+" "+"exitosamente.");
+         } catch (SQLException ex) {
+             System.out.println("Error al insertar la aerolinea");
+         }
+    }
+     
+     public List<Aerolinea> obtenerAerolineas(){
+         List<Aerolinea> aerolineas = new ArrayList<>();
+         try {
+             String sql="SELECT * FROM aerolinea;";
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet= statement.executeQuery();
+             Aerolinea aerolinea;
+             while(resultSet.next()){
+                 aerolinea = new Aerolinea();
+                 aerolinea.setCuit(resultSet.getInt("cuit_aerolinea"));
+                 aerolinea.setNombre(resultSet.getString("nombre_aerolinea"));
+                 aerolineas.add(aerolinea);
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener las aerolineas: "+ex.getMessage());
+         }
+         return aerolineas;
+     }
+     
+     public void borrarAerolinea (int cuit){         
+         try {
+             String sql = "DELETE FROM aerolinea WHERE cuit_aerolinea = ?;";             
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, cuit);
+             statement.executeUpdate();
+             System.out.println("Se ha borrado la aerolinea con exito");
+             statement.close();             
+         } catch (SQLException ex) {
+             System.out.println("Error al borrar la aerolinea :"+ex.getMessage());
+         }
+    }
+     
+     public void actualizarAerolinea(Aerolinea aerolinea, int cuit, String nombre){
+         try {
+             String sql="UPDATE aerolinea SET cuit_aerolinea= ?, nombre_aerolinea= ? WHERE cuit_aerolinea= ?";
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, cuit);
+             statement.setString(2, nombre);
+             statement.setInt(3, aerolinea.getCuit());
+             System.out.println("Exito al actualizar la aerolinea");
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al actualizar la aerolinea :"+ex.getMessage());
+         }
+     }
+     
+     public Aerolinea buscarAerolinea(int cuit){
+         Aerolinea aerolinea = null;
+         try {
+             String sql = "SELECT * FROM aerolinea WHERE cuit_aerolinea= ?;";
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, cuit);
+             ResultSet resultSet = statement.executeQuery();
+             while(resultSet.next()){
+                 aerolinea.setCuit(resultSet.getInt("cuit_aerolinea"));
+                 aerolinea.setNombre(resultSet.getString("nombre_aerolinea"));
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener la aerolinea: "+ex.getMessage());
+         }
+         return aerolinea;
+     }
+//-----------------------------------------------------------------------------//
+
+///////////////////////METODOS TABLA AEROPUERTO/////////////////////////////////
+    public void agregarAeropuerto(Aeropuerto aeropuerto, Ciudad ciudad){
+         try {
+             String sql = "INSERT INTO aeropuerto (codigo_aeropuerto, id_ciudad) VALUES ( ? , ? );";
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+             statement.setString(1, aeropuerto.getCodigo());
+             statement.setInt(2, ciudad.getId());
+             statement.executeUpdate();
+             System.out.println("Se guardo"+" "+aeropuerto.getCodigo()+" "+"con exito.");
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al guardar el aeropuerto: "+ex.getMessage());
+         }
+    }
+    
+    public List<Aeropuerto> obtenerAeropuertos(Ciudad ciudad){
+        List<Aeropuerto> aeropuertos = new ArrayList<>(); 
+        try {             
+             String sql = "SELECT * FROM aeropuerto WHERE id_ciudad=?;";
+             PreparedStatement statement= connection.prepareStatement(sql);
+             statement.setInt(1, ciudad.getId());
+             ResultSet resultSet = statement.executeQuery();
+             Aeropuerto aeropuerto;
+             while(resultSet.next()){
+                 aeropuerto = new Aeropuerto();
+                 aeropuerto.setCodigo(resultSet.getString("codigo_aeropuerto"));
+                 aeropuerto.setCiudad(ciudad);
+                 aeropuertos.add(aeropuerto);
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener la lista de vuelo: "+ex.getMessage());
+         }
+        return aeropuertos;
+    }
+    
+    public void borrarAeropuerto(int id){
+         try {
+             String sql ="DELETE * FROM aeropuerto WHERE id_aeropuerto= ?;";
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, id);
+             statement.executeUpdate();
+             System.out.println("Se ha borrando con exito");
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al borrar el aeropuerto: "+ex.getMessage());
+         }
+    }   
+    
+    public void actualizarAeropuerto(Aeropuerto aeropuerto,int id,String codigo,Ciudad ciudad){
+         try {
+             String sql ="UPDATE aeropuerto SET id_aeropuerto=? , codigo_aeropuerto=? , id_ciudad= ? WHERE id_aeropuerto= ?;";
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, id);
+             statement.setString(2, codigo);
+             statement.setInt(3, ciudad.getId());
+             statement.setInt(4, aeropuerto.getId());
+             statement.executeUpdate();
+             System.out.println("Exito al actualizar el aeropuerto");
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al actualizar el aeropuerto: "+ex.getMessage());
+         }
+    }
+    
+    public Aeropuerto buscarAeropuerto(int id, Ciudad ciudad){
+        Aeropuerto aeropuerto=null; 
+        try {            
+             String sql="SELECT * FROM aeropuerto WHERE id_aeropuerto=?;";
+             PreparedStatement statement= connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, id);
+             ResultSet resultSet = statement.executeQuery();
+             while(resultSet.next()){
+                 aeropuerto= new Aeropuerto();
+                 aeropuerto.setCodigo(resultSet.getString("codigo_aeropuerto"));
+                 aeropuerto.setCiudad(ciudad);
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al buscar el aeropuerto: "+ex.getMessage());
+         }
+        return aeropuerto;
+    }
+//-----------------------------------------------------------------------------// 
+    
+///////////////////////METODOS TABLA ASIENTO////////////////////////////////////
+    public void agregarAsiento(Asiento asiento,Avion avion){
+         try {
+             String sql="INSERT INTO asiento (numero_asiento,pasillo_asiento,id_avion) VALUES ( ? , ? , ? );";
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+             statement.setString(1, asiento.getNumero());
+             statement.setBoolean(2, asiento.isPasillo());
+             statement.setInt(3, avion.getId());
+             avion.agregarAsiento(asiento);
+             statement.executeUpdate();
+             System.out.println("Se guardo el asiento"+" "+asiento.getNumero()+" "+"con exito");
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al guardar el asiento: "+ex.getMessage());
+         }
+    }
+    
+    public List<Asiento> obtenerAsientosDisponibles (Avion avion){
+        List<Asiento> asientos = new ArrayList<>(); 
+        try {
+             String sql = "SELECT * FROM asiento WHERE id_avion=? AND estado_asiento=1";
+             PreparedStatement statement = connection.prepareStatement(sql);
+             statement.setInt(1, avion.getId());
+             ResultSet resultSet = statement.executeQuery();
+             Asiento asiento;
+             while(resultSet.next()){
+                 asiento = new Asiento();
+                 asiento.setNumero(resultSet.getString("numero_asiento"));
+                 asiento.setPasillo(resultSet.getBoolean("pasillo_asiento"));
+                 asiento.setEstado(resultSet.getBoolean("estado_asiento"));
+                 asientos.add(asiento);
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener la lista de asientos: "+ex.getMessage());
+         }
+        return asientos;
+        
+    }
+    
+    public void borrarAsiento (int id){
+         try {
+             String sql = "DELETE * FROM asiento WHERE id_asiento=?;";
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, id);
+             statement.executeUpdate();
+             System.out.println("Se ha borrado con exito");
+             statement.close();
+         } catch (SQLException ex) {
+                System.out.println("Error al borrar el asiento");
+         }
+    }
+    
+    public void actualizarAsiento (Asiento asiento,int id,String numero,boolean pasillo,boolean estado,Avion idAvion){
+         try {
+             String sql="UPDATE asiento SET id_asiento = ?, numero_asiento= ?, pasillo_asiento= ?, estado_asiento= ?, id_avion= ? WHERE id_asiento= ?;";
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, id);
+             statement.setString(2, numero);
+             statement.setBoolean(3, pasillo);
+             statement.setBoolean(4, estado);
+             statement.setInt(5, idAvion.getId());
+             statement.setInt(6, asiento.getId());
+             statement.executeUpdate();
+             System.out.println("Exito al actualizar el asiento");
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al actualizar el asiento: "+ex.getMessage());
+         }
+    }
+    
+    public Asiento buscarAsiento(int id,Avion avion){
+        Asiento asiento=null; 
+        try {            
+             String sql="SELECT * FROM asiento WHERE id_asiento= ?;";
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, id);
+             ResultSet resultSet = statement.executeQuery();
+             while(resultSet.next()){
+                 asiento = new Asiento();
+                 asiento.setId(resultSet.getInt("id_asiento"));
+                 asiento.setNumero((resultSet.getString("numero_asiento")));
+                 asiento.setPasillo(resultSet.getBoolean("pasillo_asiento"));
+                 asiento.setEstado(resultSet.getBoolean("estado_asiento"));
+                 asiento.setIdAvion(avion);
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al buscar el asiento");
+         }
+        return asiento;
+    }
+    
+    
+//-----------------------------------------------------------------------------//
+
 ///////////////////////METODOS TABLA PAIS///////////////////////////////////////   
     public void agregarPais(Pais pais){
         try {
@@ -44,6 +306,7 @@ public class Data {
                
                 //Se ejecuta un update//
             statement.executeUpdate();
+            statement.close();
             System.out.println("Se guardo"+" "+pais.getNombre()+" "+"exitosamente.");
         } catch (SQLException ex) {
            System.out.println("Error al insertar un pais");
@@ -74,7 +337,6 @@ public class Data {
         }
     
     public void borrarPais(int id){
-    
         try {
             String slq= " DELETE FROM pais WHERE id_pais =?;";
             
@@ -91,7 +353,7 @@ public class Data {
     public void actualizarPais(Pais pais,int id,String codigo,String nombre){
     
         try {
-            String slq="UPDATE pais SET id_pais= ?,codigo_pais= ?, nombre_pais= ? WHERE id_pais= ?";
+            String slq="UPDATE pais SET id_pais= ?,codigo_pais= ?, nombre_pais= ? WHERE id_pais= ?;";
             
             PreparedStatement statement = connection.prepareStatement(slq, Statement.RETURN_GENERATED_KEYS);
             
@@ -136,12 +398,12 @@ public class Data {
             }
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(PaisData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al buscar el pais: "+ex.getMessage());
         }
         
         return pais;
     }
-////////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------//
     
 ///////////////////////METODOS TABLA REPRESENTATE///////////////////////////////
      public List<Pasajero> consultarCliente(){
@@ -213,7 +475,7 @@ public class Data {
         return vuelo;
         
     }
-////////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------//
 
 ///////////////////////////////////METODOS TABLA PASAJEROS//////////////////////
      public void modificarCompra (Compra compraHecha, int dni) {            
@@ -256,7 +518,6 @@ public class Data {
          return listaCompras;
      }
   
-     
      public List<Compra> consultarCompra(Pasajero pasajero, int mes){
             List <Compra> listaComprasDelMes = new ArrayList<> ();//Se crea la lista vacia para guardar las compras del mes
          try {
@@ -279,7 +540,8 @@ public class Data {
          
          return listaComprasDelMes;
      }
-public List<Compra> consultarCompra(Pasajero pasajero, Data FechaInicio, Data fechaFinal){
+    
+     public List<Compra> consultarCompra(Pasajero pasajero, Data FechaInicio, Data fechaFinal){
             List <Compra> listaComprasDeUnaFecha = new ArrayList<> ();//Se crea la lista vacia para guardar las compras de una fecha ha otra
          try {
              String sql = "SELECT * FROM compra WHERE dni_pasajero ="+" "+pasajero.getDni()+";";

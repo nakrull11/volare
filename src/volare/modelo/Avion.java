@@ -22,7 +22,15 @@ public class Avion {
         this.asiento = asiento;
         this.cuitAerolinea = cuitAerolinea;
     }
-
+    
+    @Override
+    public String toString(){
+        return id+"-"+modelo+"-"+asiento+"-"+cuitAerolinea;
+    }
+    
+    public void agregarAsiento(Asiento asiento){
+        this.asiento.add(asiento);
+    }
     public int getId() {
         return id;
     }

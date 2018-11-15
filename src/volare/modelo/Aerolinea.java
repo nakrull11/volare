@@ -17,6 +17,15 @@ public class Aerolinea {
         this.cuit = cuit;
         this.nombre = nombre;
     }
+    
+    @Override
+    public String toString(){
+        return cuit+"-"+nombre;
+    }
+    
+    public Aerolinea() {
+    }
+    
 
     public int getCuit() {
         return cuit;

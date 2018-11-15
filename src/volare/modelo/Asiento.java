@@ -11,23 +11,42 @@ package volare.modelo;
  * @author gustavo
  */
 public class Asiento {
-    private int numero;
+    private int id;
+    private String numero;
     private boolean pasillo;
     private boolean estado;
     private Avion idAvion;
 
-    public Asiento(int numero, boolean pasillo, boolean estado, Avion idAvion) {
+    public Asiento(String numero, boolean pasillo, boolean estado, Avion idAvion) {
         this.numero = numero;
         this.pasillo = pasillo;
         this.estado = estado;
         this.idAvion = idAvion;
     }
+    
+    public Asiento(){
+    }
+    
+    @Override
+    public String toString(){
+        return id+"-"+numero+"-"+pasillo+"-"+estado+"-"+idAvion;
+    }
 
-    public int getNumero() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
+    
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
