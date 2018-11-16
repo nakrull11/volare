@@ -22,7 +22,19 @@ public class Vuelo {
     private Aeropuerto aeropuertoLlegada;
     private Estado estado;
     private Avion avion;
+    private Aerolinea cuitAerolinea;
 
+    public Aerolinea getCuitAerolinea() {
+        return cuitAerolinea;
+    }
+
+    public void setCuitAerolinea(Aerolinea cuitAerolinea) {
+        this.cuitAerolinea = cuitAerolinea;
+    }
+
+    public String toString(){
+        return id+"-"+precio+"-"+fechaSalida+"-"+fechaLlegada+"-"+refuerzo+"-"+aeropuertoSalida+"-"+aeropuertoLlegada+"-"+estado+"-"+avion+"-"+cuitAerolinea;
+    }
     public int getId() {
         return id;
     }

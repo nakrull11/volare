@@ -5,6 +5,8 @@
  */
 package volare;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import volare.modelo.Aerolinea;
@@ -12,6 +14,7 @@ import volare.modelo.Conexion;
 import volare.modelo.Data;
 import volare.modelo.Pais;
 import volare.modelo.PaisData;
+import volare.modelo.Pasajero;
 import volare.modelo.Representante;
 
 /**

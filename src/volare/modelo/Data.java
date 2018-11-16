@@ -452,7 +452,7 @@ public class Data {
                 String sql = "SELECT * FROM vuelo WHERE nombre_aerolinea="+" "+aerolinea.getNombre()+";";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
-               
+                
             statement.close();
            }catch (SQLException ex) {
                 System.out.println("sin vuelos disponibles  " + ex.getMessage());
