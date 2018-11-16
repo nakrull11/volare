@@ -41,7 +41,8 @@ public class Volare {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Volare.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+       System.out.println(data.obtenerCorreo(37723905));
+       System.out.println(data.obtenerPassPasajero(37723905));
        //pais = new Pais("PE","Peru");
        
        //AGREGAR PAISES

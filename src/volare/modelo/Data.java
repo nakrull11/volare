@@ -445,6 +445,46 @@ public class Data {
          }
     }
      
+     public String obtenerPassPasajero (int dni){
+         Pasajero pasajero=null;
+         String pass=null;
+         try {
+             String sql="SELECT password_pasajero FROM pasajero WHERE dni_pasajero=?;";
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, dni);
+             ResultSet rs = statement.executeQuery();
+             while(rs.next()){
+                 pasajero=new Pasajero();
+                 pasajero.setPassword(rs.getString("password_pasajero"));
+                 pass = pasajero.getPassword();
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener el pass: "+ex.getMessage());
+         }
+         return pass;
+     }
+     
+     public String obtenerCorreo (int dni){
+         Pasajero pasajero=null;
+         String correo= null;
+         try {
+             String sql="SELECT correo_pasajero FROM pasajero WHERE dni_pasajero=?;";
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, dni);
+             ResultSet rs = statement.executeQuery();
+             while(rs.next()){
+                 pasajero=new Pasajero();
+                 pasajero.setCorreoElectronico(rs.getString("correo_pasajero"));
+                 correo=pasajero.getCorreoElectronico();
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         return correo;
+     }
+     
      public List<Vuelo> consultarVuelo(Aerolinea aerolinea){
         ////Se crea la lista de vuelo
         List<Vuelo> vuelo = new ArrayList<Vuelo>();
@@ -493,7 +533,7 @@ public class Data {
          } catch (SQLException ex) {
             System.out.println("se ha produccido un error al modificar la compra");
          }
-     }  
+     }
      
      public List<Compra> consultarCompra(Pasajero pasajero){
             List <Compra> listaCompras = new ArrayList<> ();//Se crea la lista vacia para guardar las compras
