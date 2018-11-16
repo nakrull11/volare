@@ -30,20 +30,30 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonHome = new javax.swing.JLabel();
-        hoverHome = new javax.swing.JLabel();
-        buttonBuscar = new javax.swing.JLabel();
-        hoverBuscar = new javax.swing.JLabel();
-        buttonCompras = new javax.swing.JLabel();
-        hoverCompras = new javax.swing.JLabel();
-        buttonOfertas = new javax.swing.JLabel();
         hoverOfertas = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        hoverBuscar = new javax.swing.JLabel();
+        hoverCompras = new javax.swing.JLabel();
+        hoverHome = new javax.swing.JLabel();
+        buttonHome = new javax.swing.JLabel();
+        buttonBuscar = new javax.swing.JLabel();
+        buttonCompras = new javax.swing.JLabel();
+        buttonOfertas = new javax.swing.JLabel();
+        userLogo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         textFieldCorreoElectronico = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         textFieldConstrasenia = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+
+        hoverOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
+
+        hoverBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
+
+        hoverCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
+
+        hoverHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -57,50 +67,46 @@ public class Home extends javax.swing.JFrame {
         });
         getContentPane().add(buttonHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
-        hoverHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
-        getContentPane().add(hoverHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 146, -1, -1));
-
         buttonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/buscar.png"))); // NOI18N
         getContentPane().add(buttonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
-
-        hoverBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
-        getContentPane().add(hoverBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 233, -1, -1));
 
         buttonCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/compras.png"))); // NOI18N
         getContentPane().add(buttonCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
 
-        hoverCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
-        getContentPane().add(hoverCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 323, -1, -1));
-
         buttonOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/ofertas.png"))); // NOI18N
         getContentPane().add(buttonOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, -1, -1));
 
-        hoverOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
-        getContentPane().add(hoverOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, -1, -1));
+        userLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/userIcon.png"))); // NOI18N
+        getContentPane().add(userLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/userIcon.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Nunito", 1, 30)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Contraseña");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, -1, -1));
 
         textFieldCorreoElectronico.setBackground(new java.awt.Color(155, 89, 182));
         textFieldCorreoElectronico.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
         textFieldCorreoElectronico.setForeground(new java.awt.Color(255, 255, 255));
         textFieldCorreoElectronico.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldCorreoElectronico.setText("Correo Electronico");
         textFieldCorreoElectronico.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(255, 255, 255)));
         getContentPane().add(textFieldCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 440, 50));
+
+        jLabel3.setFont(new java.awt.Font("Nunito", 1, 30)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Correo Electronico");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, -1, -1));
 
         textFieldConstrasenia.setBackground(new java.awt.Color(155, 89, 182));
         textFieldConstrasenia.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
         textFieldConstrasenia.setForeground(new java.awt.Color(255, 255, 255));
         textFieldConstrasenia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldConstrasenia.setText("Contraseña");
         textFieldConstrasenia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(255, 255, 255)));
         textFieldConstrasenia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldConstraseniaActionPerformed(evt);
             }
         });
-        getContentPane().add(textFieldConstrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 440, 50));
+        getContentPane().add(textFieldConstrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 440, 50));
 
         jButton1.setBackground(new java.awt.Color(99, 64, 113));
         jButton1.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
@@ -108,7 +114,7 @@ public class Home extends javax.swing.JFrame {
         jButton1.setText("Entrar");
         jButton1.setBorder(null);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 460, 180, 60));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 180, 60));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/background.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -171,9 +177,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel hoverHome;
     private javax.swing.JLabel hoverOfertas;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField textFieldConstrasenia;
     private javax.swing.JTextField textFieldCorreoElectronico;
+    private javax.swing.JLabel userLogo;
     // End of variables declaration//GEN-END:variables
 }
