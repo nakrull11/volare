@@ -16,6 +16,11 @@ public class Compra {
     private float precio;
     private Estado estado;
     
+    
+    @Override
+    public String toString(){
+        return  fechaReserva+" "+vuelo+" "+pasajero+" "+numeroAsiento+" "+precio+" "+estado;
+    }
     public void setEstado(Estado estado){
         this.estado=estado;
     }
