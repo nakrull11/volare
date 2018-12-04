@@ -159,7 +159,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
+        /* // TODO add your handling code here:
         String usuario= textFieldCorreoElectronico.getText();
         String pass = textFieldConstrasenia.getText();
         String usuarioPasajero= data.obtenerCorreo(37723905).toString();
@@ -169,7 +169,7 @@ public class Home extends javax.swing.JFrame {
         
         if (textFieldCorreoElectronico.getText()!="" && textFieldConstrasenia.getText()!="") {
             
-            if((usuarioPasajero.equals(usuario)) && (usuarioPass.equals(pass))){
+            //if((usuarioPasajero.equals(usuario)) && (usuarioPass.equals(pass))){
                 JOptionPane.showMessageDialog(this, "Bienvenido"+""+usuario);
                 jPanel1.removeAll();
                 jPanel1.repaint();
@@ -183,7 +183,7 @@ public class Home extends javax.swing.JFrame {
             }
         }else{
             JOptionPane.showMessageDialog(this, "Ingrese un usuario valido");
-        }
+        }*/
             
             
             

@@ -15,6 +15,7 @@ import volare.modelo.Data;
 import volare.modelo.Pais;
 import volare.modelo.PaisData;
 import volare.modelo.Pasajero;
+import volare.modelo.PasajeroData;
 import volare.modelo.Representante;
 
 /**
@@ -30,18 +31,20 @@ public class Volare {
         
         Conexion conexion;
         PaisData paisData = null;
-        Data data=null;
+        Data data;
         Pais pais;
+        PasajeroData pasajeroData=null;
         Representante gustavo;
         
        try {
             conexion = new Conexion("jdbc:mysql://localhost/volare", "root", "");
             data = new Data(conexion);
+            pasajeroData = new PasajeroData (conexion);
             //paisData = new PaisData(conexion);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Volare.class.getName()).log(Level.SEVERE, null, ex);
         }
-       data.consultarCliente().forEach(pasajero -> {System.out.println(pasajero.toString());});
+       pasajeroData.obtenerPasajeros().forEach(pasajero -> {System.out.println(pasajero.toString());});
                
       
        //pais = new Pais("PE","Peru");
