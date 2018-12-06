@@ -40,6 +40,7 @@ public class CompraData{
     
     public List<Compra> consultarCompras(Date fechaMenor,Date fechaMayor){               
         List<Compra> compras = new ArrayList<>();
+        PasajeroData pasajeroData=null;
         try {
             
             String sql="SELECT fecha_reserva,id_vuelo,dni_pasajero,id_asiento,id_estado FROM compra c WHERE c.fecha_reserva > ? AND c.fecha_reserva < ?;";
@@ -52,26 +53,26 @@ public class CompraData{
  
             
             while(resultado.next()){
-               Pasajero pasajero = new Pasajero();                
-               pasajero.setDni(resultado.getInt("dni_pasajero"));
-                String sqlPasajero = "SELECT * FROM pasajero WHERE dni_pasajero="+" "+pasajero.getDni()+";";
+               Pasajero pasajero = new Pasajero();//Se crea el pasajero para agregar a a lista                
+               pasajero.setDni(resultado.getInt("dni_pasajero"));//Se setea el dni de la tabla
+                String sqlPasajero = "SELECT * FROM pasajero WHERE dni_pasajero="+" "+pasajero.getDni()+";";//Se seleciona todos los datos
                 PreparedStatement psPasajero = connection.prepareStatement(sqlPasajero, Statement.RETURN_GENERATED_KEYS);
                 ResultSet rsPasajero = psPasajero.executeQuery();
-                while(rsPasajero.next()){
+                while(rsPasajero.next()){//Se carga todos los datos del pasajero
                     pasajero.setNombre(rsPasajero.getString("nombre_pasajero"));
                     pasajero.setApellido(rsPasajero.getString("apellido_pasajero"));
-                    pasajero.setCorreoElectronico("correo_pasajero");
+                    pasajero.setCorreoElectronico(rsPasajero.getString("correo_pasajero"));
                     pasajero.setFechaNacimiento(rsPasajero.getDate("fechanacimiento_pasajero"));
                     pasajero.setNumeroTarjeta(rsPasajero.getInt("tarjeta_pasajero"));
                     pasajero.setPasaporte(rsPasajero.getInt("pasaporte_pasajero"));
                     pasajero.setPassword(rsPasajero.getString("password_pasajero"));
                 }
-               Vuelo vuelo = new Vuelo();
-               vuelo.setId(resultado.getInt("id_vuelo"));
-                String sqlVuelo= "SELECT * FROM vuelo WHERE id_vuelo="+" "+vuelo.getId()+";";
+               Vuelo vuelo = new Vuelo();//Se crea el vuelo
+               vuelo.setId(resultado.getInt("id_vuelo"));//Se le setea el id
+                String sqlVuelo= "SELECT * FROM vuelo WHERE id_vuelo="+" "+vuelo.getId()+";";//Se seleciona todos los vuelos que corresponde a ese id
                 PreparedStatement psVuelo = connection.prepareStatement(sqlVuelo, Statement.RETURN_GENERATED_KEYS);
                 ResultSet rsVuelo = psVuelo.executeQuery();
-                while(rsVuelo.next()){
+                while(rsVuelo.next()){//Se carga el vuelo con los datos del result set
                     vuelo.setPrecio(rsVuelo.getFloat("precio_vuelo"));
                     vuelo.setFechaSalida(rsVuelo.getDate("fechasalida_vuelo"));
                     vuelo.setFechaLlegada(rsVuelo.getDate("fechallegada_vuelo"));
@@ -87,10 +88,17 @@ public class CompraData{
                     asiento.setNumero(rsAsiento.getString("numero_asiento"));
                     asiento.setPasillo(rsAsiento.getBoolean("pasillo_asiento"));
                     Avion avion = new Avion ();
-                    //String sqlAvion = "SELECT * FROM avion WHERE"
+                    String sqlAvion = "SELECT * FROM avion WHERE";
                 }
                Estado estado = new Estado();
                estado.setId(resultado.getInt("id_estado"));
+                String sqlEstado = "SELECT * FROM estado WHERE id_estado="+" "+estado.getId()+";";
+                PreparedStatement psEstado = connection.prepareStatement(sqlEstado, Statement.RETURN_GENERATED_KEYS);
+                ResultSet rsEstado = psEstado.executeQuery();
+                while(rsEstado.next()){
+                    estado.setDisponibilidad(rsEstado.getString("disponibilidad"));
+                    
+                }
                Compra compra = new Compra();
                compra.setPrecio(7500);
                compra.setEstado(estado);

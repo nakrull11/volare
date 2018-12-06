@@ -29,10 +29,19 @@ public class VueloData{
         }
     }
     
-    /*public Vuelo consultarVuelos(Ciudad ciudadDestino, Date fecha){
+    public Vuelo consultarVuelos(Ciudad ciudadDestino, Date fecha){
+        
+        String sql =    "SELECT DISTINCT precio_vuelo,fechasalida_vuelo,fechallegada_vuelo,refuerzo_vuelo,id_aeropuerto_salida,id_aeropuerto_llegada \n" +
+                        "FROM vuelo v \n" +
+                        "JOIN aeropuerto ,ciudad ,avion, estado \n" +
+                        "WHERE v.id_aeropuerto_salida =aeropuerto.id_ciudad AND aeropuerto.id_ciudad = ? \n" +
+                        "AND fechasalida_vuelo= ? \n" +
+                        "AND v.id_avion= avion.id_avion \n" +
+                        "AND v.id_estado = estado.id_estado";
+        PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
     
-    }*/
+    }
     
     public float devolverPrecio(int id){
         float precio=0;

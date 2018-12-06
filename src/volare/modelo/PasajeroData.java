@@ -5,8 +5,11 @@
  */
 package volare.modelo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,6 +20,8 @@ import java.util.logging.Logger;
  * @author gustavo
  */
 public class PasajeroData extends Data {
+    
+    private Connection connection = null;
     
     public PasajeroData(Conexion conexion) {
         super(conexion);
@@ -51,6 +56,32 @@ public class PasajeroData extends Data {
         }
         
         return pasajeros;//Se devuelve la lista
+    }
+    
+    public Pasajero obtenerPasajero(int dni){
+        Pasajero pasajero = null;
+        try {
+            
+            String sql = "SELECT * FROM pasajero WHERE dni_pasajero= ? ;";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, dni);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                pasajero = new Pasajero();
+                pasajero.setNombre(rs.getString("nombre_pasajero"));
+                pasajero.setApellido(rs.getString("apellido_pasajero"));
+                pasajero.setCorreoElectronico(rs.getString("correo_pasajero"));
+                pasajero.setPassword(rs.getString("password_pasajero"));
+                pasajero.setFechaNacimiento(rs.getDate("fechanacimiento_pasajero"));
+                pasajero.setNumeroTarjeta(rs.getInt("tarjeta_pasajero"));
+                pasajero.setPasaporte(rs.getInt("pasaporte_pasajero"));
+                pasajero.setDni(dni);
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener el cliente :"+ex.getMessage());
+        }
+        return pasajero;
     }
     
     

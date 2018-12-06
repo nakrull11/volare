@@ -15,7 +15,7 @@ public class Estado {
 
     @Override
     public String toString(){
-        return disponibilidad;
+        return"Estado de la compra: "+disponibilidad+"\n";
     }
     public int getId() {
         return id;
