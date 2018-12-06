@@ -23,6 +23,10 @@ public class Avion {
         this.cuitAerolinea = cuitAerolinea;
     }
     
+    public Avion (){
+        
+    }
+    
     @Override
     public String toString(){
         return id+"-"+modelo+"-"+asiento+"-"+cuitAerolinea;

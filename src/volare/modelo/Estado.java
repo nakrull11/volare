@@ -13,6 +13,10 @@ public class Estado {
     private int id;
     private String disponibilidad;
 
+    @Override
+    public String toString(){
+        return disponibilidad;
+    }
     public int getId() {
         return id;
     }

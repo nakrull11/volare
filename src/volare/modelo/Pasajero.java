@@ -38,7 +38,9 @@ public Pasajero(int pasaporte, int dni, String correoElectronico, String nombre,
 
    @Override
    public String toString(){
-        return "pasaporte: "+pasaporte+" "+"dni: "+dni+" "+"correo electronico: "+correoElectronico+" "+"nombre: "+nombre+" "+"apellido: "+apellido+" "+"fecha de nacimiento: "+fechaNacimiento+" "+"numero de tarjeta :"+numeroTarjeta+" "+"password: "+password;
+        return "pasaporte: "+pasaporte+"\n"+"dni: "+dni+"\n"+"correo electronico: "+correoElectronico+"\n"+"nombre: "+nombre+"\n"+"apellido: "+apellido+"\n"+"fecha de nacimiento: "+fechaNacimiento+" "+"numero de tarjeta :"+
+                numeroTarjeta+"\n "+"password: "+
+                password;
     }
 
 public int getPasaporte() {
