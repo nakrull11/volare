@@ -25,7 +25,16 @@ public class PasajeroData extends Data {
     
     public PasajeroData(Conexion conexion) {
         super(conexion);
+        try {
+            connection = conexion.getConexion();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al establecer la conexión");
+        }
     }
+    
+    
+   
     
     
     public List<Pasajero> obtenerPasajeros(){
@@ -85,6 +94,44 @@ public class PasajeroData extends Data {
     }
     
     
-    
+     public String obtenerCorreo (int dni){
+         Pasajero pasajero;
+         String correo=null;
+         try {
+             String sql="SELECT correo_pasajero FROM pasajero WHERE dni_pasajero= ? ;";
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, dni);
+             ResultSet rs = statement.executeQuery();
+             while(rs.next()){
+                 pasajero=new Pasajero();
+                 pasajero.setCorreoElectronico(rs.getString("correo_pasajero"));
+                 correo=pasajero.getCorreoElectronico();
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener el correo del pasajero: "+ex.getMessage());
+         }
+         return correo;
+     }
+     
+      public String obtenerPassPasajero (int dni){
+         Pasajero pasajero;
+         String pass=null;
+         try {
+             String sql="SELECT password_pasajero FROM pasajero WHERE dni_pasajero= ? ;";
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             statement.setInt(1, dni);
+             ResultSet rs = statement.executeQuery();
+             while(rs.next()){
+                 pasajero=new Pasajero();
+                 pasajero.setPassword(rs.getString("password_pasajero"));
+                 pass = pasajero.getPassword();
+             }
+             statement.close();
+         } catch (SQLException ex) {
+             System.out.println("Error al obtener el pass: "+ex.getMessage());
+         }
+         return pass;
+     }
     
 }

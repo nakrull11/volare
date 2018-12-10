@@ -5,13 +5,16 @@
  */
 package volare.vista;
 
+import java.awt.Color;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import sun.security.util.Password;
 import volare.modelo.Conexion;
 import volare.modelo.Data;
+import volare.modelo.PasajeroData;
 
 /**
  *
@@ -21,6 +24,7 @@ public class Home extends javax.swing.JFrame {
     
     Conexion conexion;
     Data data;
+    PasajeroData pasajeroData;
 
     /**
      * Creates new form Home
@@ -31,6 +35,17 @@ public class Home extends javax.swing.JFrame {
             this.setLocationRelativeTo(null);
             conexion = new Conexion("jdbc:mysql://localhost/volare", "root", "");
             data = new Data (conexion);
+            pasajeroData = new PasajeroData (conexion);
+            
+            Login login = new Login();
+            login.setVisible(true);
+            login.setLocation(400,100);
+            login.setJMenuBar(null);
+            escritorio.add(login);
+            escritorio.moveToFront(login);
+            
+            
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,20 +65,8 @@ public class Home extends javax.swing.JFrame {
         hoverBuscar = new javax.swing.JLabel();
         hoverCompras = new javax.swing.JLabel();
         hoverHome = new javax.swing.JLabel();
-        buttonHome = new javax.swing.JLabel();
-        buttonBuscar = new javax.swing.JLabel();
-        buttonCompras = new javax.swing.JLabel();
-        buttonOfertas = new javax.swing.JLabel();
-        userLogo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        textFieldCorreoElectronico = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        textFieldConstrasenia = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        background = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        escritorio = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
 
         hoverOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
 
@@ -77,120 +80,34 @@ public class Home extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        buttonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/home.png"))); // NOI18N
-        buttonHome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttonHomeMouseEntered(evt);
-            }
-        });
-        getContentPane().add(buttonHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/background.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setPreferredSize(new java.awt.Dimension(1000, 600));
 
-        buttonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/buscar.png"))); // NOI18N
-        getContentPane().add(buttonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        buttonCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/compras.png"))); // NOI18N
-        getContentPane().add(buttonCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
 
-        buttonOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/ofertas.png"))); // NOI18N
-        getContentPane().add(buttonOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, -1, -1));
-
-        userLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/userIcon.png"))); // NOI18N
-        getContentPane().add(userLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Nunito", 1, 30)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Contraseña");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, -1, -1));
-
-        textFieldCorreoElectronico.setBackground(new java.awt.Color(155, 89, 182));
-        textFieldCorreoElectronico.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
-        textFieldCorreoElectronico.setForeground(new java.awt.Color(255, 255, 255));
-        textFieldCorreoElectronico.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldCorreoElectronico.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(255, 255, 255)));
-        getContentPane().add(textFieldCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 440, 50));
-
-        jLabel3.setFont(new java.awt.Font("Nunito", 1, 30)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Correo Electronico");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, -1, -1));
-
-        textFieldConstrasenia.setBackground(new java.awt.Color(155, 89, 182));
-        textFieldConstrasenia.setForeground(new java.awt.Color(255, 255, 255));
-        textFieldConstrasenia.setDisabledTextColor(new java.awt.Color(255, 51, 51));
-        getContentPane().add(textFieldConstrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, 440, 50));
-
-        jButton1.setBackground(new java.awt.Color(99, 64, 113));
-        jButton1.setFont(new java.awt.Font("Nunito", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Entrar");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 180, 60));
-
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/background.png"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 800, 320));
-
-        jPasswordField1.setText("jPasswordField1");
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, -1, -1));
-        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, 160, 160));
+        getContentPane().add(escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void buttonHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHomeMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonHomeMouseEntered
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        /* // TODO add your handling code here:
-        String usuario= textFieldCorreoElectronico.getText();
-        String pass = textFieldConstrasenia.getText();
-        String usuarioPasajero= data.obtenerCorreo(37723905).toString();
-        String usuarioPass= data.obtenerPassPasajero(37723905).toString();
         
-       
-        
-        if (textFieldCorreoElectronico.getText()!="" && textFieldConstrasenia.getText()!="") {
-            
-            //if((usuarioPasajero.equals(usuario)) && (usuarioPass.equals(pass))){
-                JOptionPane.showMessageDialog(this, "Bienvenido"+""+usuario);
-                jPanel1.removeAll();
-                jPanel1.repaint();
-                Buscar buscar = new Buscar ();
-                buscar.setVisible(true);
-                
-                jPanel1.add(buscar);
-                
-               }else{
-                JOptionPane.showMessageDialog(this, "correo o contraseña incorrectos");
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Ingrese un usuario valido");
-        }*/
-            
-            
-            
-       
-        
-    }//GEN-LAST:event_jButton1MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -222,28 +139,19 @@ public class Home extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Home().setVisible(true);
+                
+                
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel background;
-    private javax.swing.JLabel buttonBuscar;
-    private javax.swing.JLabel buttonCompras;
-    private javax.swing.JLabel buttonHome;
-    private javax.swing.JLabel buttonOfertas;
+    private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel hoverBuscar;
     private javax.swing.JLabel hoverCompras;
     private javax.swing.JLabel hoverHome;
     private javax.swing.JLabel hoverOfertas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField textFieldConstrasenia;
-    private javax.swing.JTextField textFieldCorreoElectronico;
-    private javax.swing.JLabel userLogo;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

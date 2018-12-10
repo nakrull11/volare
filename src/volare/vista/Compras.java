@@ -30,6 +30,7 @@ public class Compras extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(155, 89, 182));
+        setPreferredSize(new java.awt.Dimension(719, 500));
 
         jLabel2.setFont(new java.awt.Font("Nunito", 1, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -49,7 +50,7 @@ public class Compras extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel2)
-                .addContainerGap(526, Short.MAX_VALUE))
+                .addContainerGap(430, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

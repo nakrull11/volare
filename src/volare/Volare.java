@@ -53,7 +53,8 @@ public class Volare {
             System.out.println("Error al establecer la conexion :"+ex.getMessage());
         }
        //compraData.consultarCompras(Date.valueOf("2018-12-02"),Date.valueOf("2018-12-05")).forEach(compra -> {System.out.println(compra.toString());});
-       
+        System.out.println(pasajeroData.obtenerCorreo(37723905));
+       System.out.println(pasajeroData.obtenerPassPasajero(37723905));
        System.out.println(compraData.consultarCompras(Date.valueOf("2018-12-02"),Date.valueOf("2018-12-05")));
        /*pasajeroData.obtenerPasajeros().forEach(pasajero -> {System.out.println(pasajero.toString());});*/
          
