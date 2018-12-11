@@ -51,6 +51,11 @@ public class Login extends javax.swing.JInternalFrame {
         jButtonIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonIngresar.setContentAreaFilled(false);
         jButtonIngresar.setOpaque(true);
+        jButtonIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngresarActionPerformed(evt);
+            }
+        });
 
         jTextFieldUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jTextFieldUsuario.setOpaque(false);
@@ -115,6 +120,14 @@ public class Login extends javax.swing.JInternalFrame {
     private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordActionPerformed
+
+    private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
+        
+        BuscarVuelos buscarVuelo = new BuscarVuelos();
+        buscarVuelo.setVisible(true);
+        buscarVuelo.moveToFront();
+        
+    }//GEN-LAST:event_jButtonIngresarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
