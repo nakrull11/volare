@@ -92,7 +92,7 @@ public class AeropuertoData {
          }
     }
     
-    public Aeropuerto buscarAeropuerto(int id, Ciudad ciudad){
+    public Aeropuerto buscarAeropuerto(int id){
         Aeropuerto aeropuerto=null; 
         try {            
              String sql="SELECT * FROM aeropuerto WHERE id_aeropuerto=?;";
@@ -102,7 +102,6 @@ public class AeropuertoData {
              while(resultSet.next()){
                  aeropuerto= new Aeropuerto();
                  aeropuerto.setCodigo(resultSet.getString("codigo_aeropuerto"));
-                 aeropuerto.setCiudad(ciudad);
              }
              statement.close();
          } catch (SQLException ex) {

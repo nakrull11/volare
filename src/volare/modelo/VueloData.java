@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class VueloData{
     
     private Connection connection = null;
-    private   AeropuertoData aeropuertoData=null; 
+    private  AeropuertoData aeropuertoData=null; 
     public VueloData(Conexion conexion) {
        try {
             connection = conexion.getConexion();
@@ -33,7 +33,7 @@ public class VueloData{
         }
     }
     
-    /*public List<Vuelo> consultarVuelos(Ciudad ciudadDestino){
+    public List<Vuelo> consultarVuelos(Ciudad ciudadDestino){
         List<Vuelo> vuelos = new ArrayList<>();
         try {
             
@@ -49,20 +49,17 @@ public class VueloData{
                 vuelo.setPrecio(rs.getFloat("precio_vuelo"));
                 vuelo.setRefuerzo(rs.getBoolean("refuerzo_vuelo"));
                 Aeropuerto aeropuerto = new Aeropuerto();
-                aeropuerto.setCiudad(ciudadDestino);
-                String sqlAero = "SELECT id_aeropuerto,codigo_aeropuerto,id_ciudad FROM aeropuerto JOIN vuelo WHERE vuelo.id_aeropuerto_salida=aeropuerto.id_aeropuerto AND aeropuerto.id_ciudad = ? ;";
-                PreparedStatement psAero = connection.prepareStatement(sqlAero, Statement.RETURN_GENERATED_KEYS);
-                psAero.setInt(0, 0);
-                
+                aeropuerto = aeropuertoData.buscarAeropuerto(rs.getInt("id_aeropuerto"));
+                vuelo.setAeropuertoLlegada(aeropuerto);
                 
                 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(VueloData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al obtener la lista de vuelos :"+ex.getMessage());
         }
-        
+        return vuelos;
     
-    }*/
+    }
     
     public float devolverPrecio(int id){
         float precio=0;
@@ -75,7 +72,7 @@ public class VueloData{
                 precio = rs.getFloat("precio_vuelo");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(VueloData.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("Error al devolver los precios: "+ex.getMessage());
         }
         
         return precio;
