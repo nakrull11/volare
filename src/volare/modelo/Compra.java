@@ -12,14 +12,14 @@ public class Compra {
     private Date fechaReserva;
     private Vuelo vuelo;
     private Pasajero pasajero;
-    private Asiento numeroAsiento;
+    private Asiento asiento;
     private float precio;
     private Estado estado;
     
     
     @Override
     public String toString(){
-        return  fechaReserva+" "+vuelo+" "+pasajero+" "+numeroAsiento+" "+precio+" "+estado;
+        return  fechaReserva+" "+vuelo+" "+pasajero+" "+asiento+" "+precio+" "+estado;
     }
     public void setEstado(Estado estado){
         this.estado=estado;
@@ -61,12 +61,12 @@ public class Compra {
         this.pasajero = pasajero;
     }
 
-    public Asiento getNumeroAsiento() {
-        return numeroAsiento;
+    public Asiento getAsiento() {
+        return asiento;
     }
 
     public void setNumeroAsiento(Asiento numeroAsiento) {
-        this.numeroAsiento = numeroAsiento;
+        this.asiento = numeroAsiento;
     }
 
     public float getPrecio() {
