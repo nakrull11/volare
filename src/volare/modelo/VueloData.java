@@ -53,6 +53,7 @@ public class VueloData{
                 vuelo.setAeropuertoLlegada(aeropuerto);
                 
                 
+                
             }
         } catch (SQLException ex) {
             System.out.println("Error al obtener la lista de vuelos :"+ex.getMessage());

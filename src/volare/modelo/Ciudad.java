@@ -19,6 +19,16 @@ public class Ciudad {
         this.nombre = nombre;
         this.provincia = provincia;
     }
+    
+    @Override
+    public String toString(){
+        
+       return id+" "+nombre+" "+provincia; 
+    }
+    
+    public Ciudad(){
+    }
+    
 
     public int getId() {
         return id;

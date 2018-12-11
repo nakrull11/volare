@@ -19,7 +19,16 @@ public class Provincia {
         this.pais = pais;
         this.nombre = nombre;
     }
-
+    
+    @Override
+    public String toString(){
+        return pais+" "+nombre;
+    }
+    
+    public Provincia(){
+    
+    }
+    
     public int getId() {
         return id;
     }

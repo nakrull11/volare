@@ -15,39 +15,43 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author gustavo
+ * @author Usuario
  */
-public class CiudadData {
+public class ProvinciaData {
     private Connection connection = null;
-    private ProvinciaData provinciaData;
+    private PaisData paisData =null;
     
-    public CiudadData(Conexion conexion){
+    public ProvinciaData(Conexion conexion){
         try {
             connection = conexion.getConexion();
-            provinciaData = new ProvinciaData(conexion);
+            paisData = new PaisData(conexion);
         } catch (SQLException ex) {
             System.out.println("Error al establecer la conexión");
         }
         
     }
     
-    public Ciudad obtenerCiudad(int id){
-        Ciudad ciudad = null;
+    public Provincia obtenerProvincia(int id){
+            Provincia provincia=null;
         try {
-            String sql= "SELECT * FROM ciudad WHERE id_ciudad = ? ;";
-            PreparedStatement ps =connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            
+            String sql = "SELECT * FROM provincia WHERE id_provincia = ? ;";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                ciudad = new Ciudad ();
-                ciudad.setNombre(rs.getString("nombre_ciudad"));
-                ciudad.setProvincia(provinciaData.obtenerProvincia(rs.getInt("id_provincia")));               
+                provincia = new Provincia();
+                provincia.setNombre(rs.getString("nombre_provincia"));
+                provincia.setPais(paisData.buscarPais(rs.getInt("id_pais")));
+                
             }
+            return provincia;
         } catch (SQLException ex) {
-            Logger.getLogger(CiudadData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al obtener la provincia :"+ex.getMessage());
         }
-        return ciudad;
+        return provincia;
     }
+    
     
     
 }
