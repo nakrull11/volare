@@ -67,6 +67,10 @@ public class Home extends javax.swing.JFrame {
         hoverHome = new javax.swing.JLabel();
         escritorio = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        jMenuPrincipal = new javax.swing.JMenuBar();
+        jMenuPasajero = new javax.swing.JMenu();
+        jMenuVuelos = new javax.swing.JMenu();
+        jMenuCompras = new javax.swing.JMenu();
 
         hoverOfertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/hoverHome.png"))); // NOI18N
 
@@ -98,10 +102,24 @@ public class Home extends javax.swing.JFrame {
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getContentPane().add(escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 600));
+
+        jMenuPrincipal.setBackground(new java.awt.Color(0, 51, 204));
+        jMenuPrincipal.setBorder(null);
+
+        jMenuPasajero.setText("Ingresar");
+        jMenuPrincipal.add(jMenuPasajero);
+
+        jMenuVuelos.setText("Edit");
+        jMenuPrincipal.add(jMenuVuelos);
+
+        jMenuCompras.setText("Compras");
+        jMenuPrincipal.add(jMenuCompras);
+
+        setJMenuBar(jMenuPrincipal);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,5 +171,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel hoverHome;
     private javax.swing.JLabel hoverOfertas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenuCompras;
+    private javax.swing.JMenu jMenuPasajero;
+    private javax.swing.JMenuBar jMenuPrincipal;
+    private javax.swing.JMenu jMenuVuelos;
     // End of variables declaration//GEN-END:variables
 }
