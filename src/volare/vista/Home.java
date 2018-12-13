@@ -37,12 +37,7 @@ public class Home extends javax.swing.JFrame {
             data = new Data (conexion);
             pasajeroData = new PasajeroData (conexion);
             
-            Login login = new Login();
-            login.setVisible(true);
-            login.setLocation(400,100);
-            login.setJMenuBar(null);
-            escritorio.add(login);
-            escritorio.moveToFront(login);
+            
             
             
             
@@ -94,9 +89,7 @@ public class Home extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,18 +104,77 @@ public class Home extends javax.swing.JFrame {
         jMenuPrincipal.setBorder(null);
 
         jMenuPasajero.setText("Ingresar");
+        jMenuPasajero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuPasajeroMouseClicked(evt);
+            }
+        });
+        jMenuPasajero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuPasajeroActionPerformed(evt);
+            }
+        });
         jMenuPrincipal.add(jMenuPasajero);
 
-        jMenuVuelos.setText("Edit");
+        jMenuVuelos.setText("Vuelos");
+        jMenuVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuVuelosMouseClicked(evt);
+            }
+        });
         jMenuPrincipal.add(jMenuVuelos);
 
         jMenuCompras.setText("Compras");
+        jMenuCompras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuComprasMouseClicked(evt);
+            }
+        });
         jMenuPrincipal.add(jMenuCompras);
 
         setJMenuBar(jMenuPrincipal);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPasajeroActionPerformed
+        // TODO add your handling code here:
+        
+            
+        
+        
+    }//GEN-LAST:event_jMenuPasajeroActionPerformed
+
+    private void jMenuPasajeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuPasajeroMouseClicked
+        // TODO add your handling code here:
+            escritorio.removeAll();
+            escritorio.repaint();
+            Login login = new Login();
+            login.setVisible(true);
+            escritorio.add(login);
+            login.setLocation(400,100);
+            escritorio.moveToFront(login);
+    }//GEN-LAST:event_jMenuPasajeroMouseClicked
+
+    private void jMenuVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVuelosMouseClicked
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        Vuelos vuelos = new Vuelos();
+        vuelos.setVisible(true);
+        escritorio.add(vuelos);
+        escritorio.moveToFront(vuelos);
+    }//GEN-LAST:event_jMenuVuelosMouseClicked
+
+    private void jMenuComprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuComprasMouseClicked
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        Compras compras = new Compras();
+        compras.setVisible(true);
+        escritorio.add(compras);
+        escritorio.moveToFront(compras);
+    }//GEN-LAST:event_jMenuComprasMouseClicked
         
         
         

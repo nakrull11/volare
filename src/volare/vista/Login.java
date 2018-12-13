@@ -32,9 +32,17 @@ public class Login extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jButtonIngresar = new javax.swing.JButton();
-        jTextFieldUsuario = new javax.swing.JTextField();
+        jTextFieldDocumento = new javax.swing.JTextField();
         jPassword = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jTextFieldApellido = new javax.swing.JTextField();
+        jTextFieldCorreo = new javax.swing.JTextField();
+        jCheckBoxPasaporte = new javax.swing.JCheckBox();
+        jTextFieldPasaporte = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabelFechaDeNac = new javax.swing.JLabel();
+        jLabelFechaNacimientoElegida = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 102, 255));
         setBorder(null);
@@ -48,7 +56,7 @@ public class Login extends javax.swing.JInternalFrame {
         jButtonIngresar.setFont(new java.awt.Font("Myriad Pro Light", 1, 18)); // NOI18N
         jButtonIngresar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonIngresar.setText("Ingresar");
-        jButtonIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonIngresar.setBorder(new javax.swing.border.SoftBevelBorder(0));
         jButtonIngresar.setContentAreaFilled(false);
         jButtonIngresar.setOpaque(true);
         jButtonIngresar.addActionListener(new java.awt.event.ActionListener() {
@@ -57,17 +65,17 @@ public class Login extends javax.swing.JInternalFrame {
             }
         });
 
-        jTextFieldUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
-        jTextFieldUsuario.setOpaque(false);
-        jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldDocumento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "N° de Documento", 2, 2, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jTextFieldDocumento.setOpaque(false);
+        jTextFieldDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUsuarioActionPerformed(evt);
+                jTextFieldDocumentoActionPerformed(evt);
             }
         });
 
         jPassword.setBackground(new java.awt.Color(102, 102, 255));
         jPassword.setForeground(new java.awt.Color(255, 255, 255));
-        jPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", 2, 2, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPassword.setOpaque(false);
         jPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +85,56 @@ public class Login extends javax.swing.JInternalFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/userIcon.png"))); // NOI18N
 
+        jTextFieldNombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", 2, 2, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jTextFieldNombre.setOpaque(false);
+        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNombreActionPerformed(evt);
+            }
+        });
+
+        jTextFieldApellido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Apellido", 2, 2, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jTextFieldApellido.setOpaque(false);
+        jTextFieldApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldApellidoActionPerformed(evt);
+            }
+        });
+
+        jTextFieldCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo", 2, 2, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jTextFieldCorreo.setOpaque(false);
+        jTextFieldCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCorreoActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxPasaporte.setFont(new java.awt.Font("Miriam", 1, 10)); // NOI18N
+        jCheckBoxPasaporte.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBoxPasaporte.setText("Poseo pasaporte");
+        jCheckBoxPasaporte.setOpaque(false);
+        jCheckBoxPasaporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxPasaporteActionPerformed(evt);
+            }
+        });
+
+        jTextFieldPasaporte.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "N° de Pasaporte\n", 2, 2, new java.awt.Font("Myriad Pro Light", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jTextFieldPasaporte.setEnabled(false);
+        jTextFieldPasaporte.setOpaque(false);
+        jTextFieldPasaporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPasaporteActionPerformed(evt);
+            }
+        });
+
+        jLabelFechaDeNac.setFont(new java.awt.Font("Miriam", 0, 14)); // NOI18N
+        jLabelFechaDeNac.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelFechaDeNac.setText("Ingrese fecha de nacimiento");
+
+        jLabelFechaNacimientoElegida.setFont(new java.awt.Font("Miriam", 0, 14)); // NOI18N
+        jLabelFechaNacimientoElegida.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,17 +142,34 @@ public class Login extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldPasaporte, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCheckBoxPasaporte)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelFechaDeNac)
+                                    .addComponent(jLabelFechaNacimientoElegida))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jButtonIngresar))
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jButtonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGap(199, 199, 199)
+                        .addComponent(jLabel1)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,20 +177,37 @@ public class Login extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jCheckBoxPasaporte)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldPasaporte, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelFechaDeNac))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelFechaNacimientoElegida)))
+                .addGap(45, 45, 45))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
+    private void jTextFieldDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDocumentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
+    }//GEN-LAST:event_jTextFieldDocumentoActionPerformed
 
     private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
         // TODO add your handling code here:
@@ -129,11 +221,41 @@ public class Login extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
+    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNombreActionPerformed
+
+    private void jTextFieldApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldApellidoActionPerformed
+
+    private void jTextFieldCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCorreoActionPerformed
+
+    private void jTextFieldPasaporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasaporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPasaporteActionPerformed
+
+    private void jCheckBoxPasaporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPasaporteActionPerformed
+        // TODO add your handling code here:
+        
+        jTextFieldPasaporte.setEnabled(jCheckBoxPasaporte.isSelected());
+    }//GEN-LAST:event_jCheckBoxPasaporteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIngresar;
+    private javax.swing.JCheckBox jCheckBoxPasaporte;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelFechaDeNac;
+    private javax.swing.JLabel jLabelFechaNacimientoElegida;
     private javax.swing.JPasswordField jPassword;
-    private javax.swing.JTextField jTextFieldUsuario;
+    private javax.swing.JTextField jTextFieldApellido;
+    private javax.swing.JTextField jTextFieldCorreo;
+    private javax.swing.JTextField jTextFieldDocumento;
+    private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldPasaporte;
     // End of variables declaration//GEN-END:variables
 }
