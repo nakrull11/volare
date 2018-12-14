@@ -49,8 +49,12 @@ public class VueloData{
                 vuelo.setPrecio(rs.getFloat("precio_vuelo"));
                 vuelo.setRefuerzo(rs.getBoolean("refuerzo_vuelo"));
                 Aeropuerto aeropuerto = new Aeropuerto();
-                aeropuerto = aeropuertoData.buscarAeropuerto(rs.getInt("id_aeropuerto"));
+                aeropuerto = aeropuertoData.buscarAeropuerto(rs.getInt("id_aeropuerto_llegada"));
                 vuelo.setAeropuertoLlegada(aeropuerto);
+                Aeropuerto aeropuertoSalida = new Aeropuerto();
+                aeropuertoSalida = aeropuertoData.buscarAeropuerto(rs.getInt("id_aeropuerto_salidad"));
+                
+                vuelos.add(vuelo);
                 
                 
                 

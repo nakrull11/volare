@@ -41,6 +41,7 @@ public class ProvinciaData {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 provincia = new Provincia();
+                provincia.setId(rs.getInt("id_provincia"));
                 provincia.setNombre(rs.getString("nombre_provincia"));
                 provincia.setPais(paisData.buscarPais(rs.getInt("id_pais")));
                 

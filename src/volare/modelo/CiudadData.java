@@ -40,6 +40,7 @@ public class CiudadData {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 ciudad = new Ciudad ();
+                ciudad.setId(rs.getInt("id_ciudad"));
                 ciudad.setNombre(rs.getString("nombre_ciudad"));
                 ciudad.setProvincia(provinciaData.obtenerProvincia(rs.getInt("id_provincia")));               
             }
