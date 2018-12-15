@@ -24,7 +24,6 @@ import volare.modelo.Pais;
 import volare.modelo.PaisData;
 import volare.modelo.Pasajero;
 import volare.modelo.PasajeroData;
-import volare.modelo.Representante;
 import volare.modelo.VueloData;
 
 /**
@@ -49,8 +48,10 @@ public class Volare {
         VueloData vueloData=null;
         AvionData avionData=null;
         AsientoData asientoData = null;
-        Representante gustavo;
         
+
+               
+
        try {
             conexion = new Conexion("jdbc:mysql://localhost/volare", "root", "");
             data = new Data(conexion);
