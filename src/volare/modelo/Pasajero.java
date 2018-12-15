@@ -6,6 +6,7 @@
 package volare.modelo;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -17,11 +18,11 @@ public class Pasajero {
     private String correoElectronico;
     private String nombre;
     private String apellido;
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     private int numeroTarjeta;
     private String password;
     
-public Pasajero(int pasaporte, int dni, String correoElectronico, String nombre, String apellido, Date fechaNacimiento, int numeroTarjeta, String password) {
+public Pasajero(int pasaporte, int dni, String correoElectronico, String nombre, String apellido, LocalDate fechaNacimiento, int numeroTarjeta, String password) {
         this.pasaporte = pasaporte;
         this.dni=dni;
         this.correoElectronico = correoElectronico;
@@ -75,13 +76,10 @@ public int getPasaporte() {
         this.apellido = apellido;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento  = fechaNacimiento;
-    }
     
     public String getCorreoElectronico() {
         return correoElectronico;
@@ -112,6 +110,10 @@ public int getPasaporte() {
       compraHecha.setPasajero(null);
       compraHecha.setNumeroAsiento(null);
   }  
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
 }
   
 

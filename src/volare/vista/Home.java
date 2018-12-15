@@ -6,6 +6,7 @@
 package volare.vista;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +16,7 @@ import sun.security.util.Password;
 import volare.modelo.Conexion;
 import volare.modelo.Data;
 import volare.modelo.PasajeroData;
+import volare.vista.img.ImagenDeFondo;
 
 /**
  *
@@ -29,19 +31,16 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Home() throws IOException {
+        initComponents();
+        escritorio.setBorder(new ImagenDeFondo());
         try {
-            initComponents();
+            
             this.setLocationRelativeTo(null);
             conexion = new Conexion("jdbc:mysql://localhost/volare", "root", "");
             data = new Data (conexion);
             pasajeroData = new PasajeroData (conexion);
-            
-            
-            
-            
-            
-        } catch (ClassNotFoundException ex) {
+            } catch (ClassNotFoundException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -152,7 +151,7 @@ public class Home extends javax.swing.JFrame {
             Login login = new Login();
             login.setVisible(true);
             escritorio.add(login);
-            login.setLocation(400,100);
+            login.setLocation(300,80);
             escritorio.moveToFront(login);
     }//GEN-LAST:event_jMenuPasajeroMouseClicked
 
@@ -163,6 +162,7 @@ public class Home extends javax.swing.JFrame {
         Vuelos vuelos = new Vuelos();
         vuelos.setVisible(true);
         escritorio.add(vuelos);
+        vuelos.setLocation(300, 80);
         escritorio.moveToFront(vuelos);
     }//GEN-LAST:event_jMenuVuelosMouseClicked
 
@@ -173,6 +173,7 @@ public class Home extends javax.swing.JFrame {
         Compras compras = new Compras();
         compras.setVisible(true);
         escritorio.add(compras);
+        compras.setLocation(300,80);
         escritorio.moveToFront(compras);
     }//GEN-LAST:event_jMenuComprasMouseClicked
         
@@ -208,7 +209,13 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                
+                try {
+                    new Home().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
                 
                 
                 

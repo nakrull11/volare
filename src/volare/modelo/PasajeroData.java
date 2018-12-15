@@ -6,6 +6,7 @@
 package volare.modelo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,6 +38,32 @@ public class PasajeroData extends Data {
    
     
     
+    
+    
+    public boolean guardarPasajero(Pasajero pasajero){
+        try {
+            String sql = "INSERT INTO pasajero (dni_pasajero,pasaporte_pasajero,correo_pasajero,nombre_pasajero,apellido_pasajero,fechanacimiento_pasajero,password_pasajero) VALUES ( ? , ? , ? , ? , ? , ? , ?); ";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, pasajero.getDni());
+            ps.setInt(2, pasajero.getPasaporte());
+            ps.setString(3, pasajero.getCorreoElectronico());
+            ps.setString(4, pasajero.getNombre());
+            ps.setString(5, pasajero.getApellido());
+            ps.setDate(6, Date.valueOf(pasajero.getFechaNacimiento()));
+            ps.setString(7, pasajero.getPassword());
+            
+            ps.executeUpdate();
+            
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al guardar el pasajero"+ex.getMessage());
+            return false;
+        }
+        
+        return true;
+    
+    }
+    
     public List<Pasajero> obtenerPasajeros(){
             String tabla = "pasajero";//String "pasajero" que es el nombre de la tabla en nuestra DB
             List<Pasajero> pasajeros = new ArrayList<>();//Array List vacio de tipo Pasajero
@@ -52,7 +79,7 @@ public class PasajeroData extends Data {
                 pasajero.setNombre(resultado.getString("nombre_pasajero"));
                 pasajero.setApellido(resultado.getString("apellido_pasajero"));
                 pasajero.setCorreoElectronico(resultado.getString("correo_pasajero"));
-                pasajero.setFechaNacimiento(resultado.getDate("fechanacimiento_pasajero"));
+                pasajero.setFechaNacimiento(resultado.getDate("fechanacimiento_pasajero").toLocalDate());
                 pasajero.setNumeroTarjeta(resultado.getInt("tarjeta_pasajero"));
                 pasajero.setPassword(resultado.getString("password_pasajero"));
                 pasajero.setPasaporte(resultado.getInt("pasaporte_pasajero"));
@@ -81,7 +108,7 @@ public class PasajeroData extends Data {
                 pasajero.setApellido(rs.getString("apellido_pasajero"));
                 pasajero.setCorreoElectronico(rs.getString("correo_pasajero"));
                 pasajero.setPassword(rs.getString("password_pasajero"));
-                pasajero.setFechaNacimiento(rs.getDate("fechanacimiento_pasajero"));
+                pasajero.setFechaNacimiento(rs.getDate("fechanacimiento_pasajero").toLocalDate());
                 pasajero.setNumeroTarjeta(rs.getInt("tarjeta_pasajero"));
                 pasajero.setPasaporte(rs.getInt("pasaporte_pasajero"));
                 pasajero.setDni(dni);

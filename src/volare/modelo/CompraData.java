@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,6 +36,21 @@ public class CompraData{
     
     }
     
+    public boolean comprarAsiento(Asiento asiento){
+        try {
+            String sql = "UPDATE asiento SET estado_asiento = ? WHERE id_asiento= ? ;";
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setBoolean(1, false);
+            ps.setInt(2, asiento.getId());
+            ps.executeUpdate();
+            ps.close();
+            ResultSet rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            System.out.println("Error al comprar el asiento"+ex.getMessage());
+            return false;
+        }
+        return true;
+    }
     
     
     
@@ -62,7 +78,7 @@ public class CompraData{
                     pasajero.setNombre(rsPasajero.getString("nombre_pasajero"));
                     pasajero.setApellido(rsPasajero.getString("apellido_pasajero"));
                     pasajero.setCorreoElectronico(rsPasajero.getString("correo_pasajero"));
-                    pasajero.setFechaNacimiento(rsPasajero.getDate("fechanacimiento_pasajero"));
+                    pasajero.setFechaNacimiento(rsPasajero.getDate("fechanacimiento_pasajero").toLocalDate());
                     pasajero.setNumeroTarjeta(rsPasajero.getInt("tarjeta_pasajero"));
                     pasajero.setPasaporte(rsPasajero.getInt("pasaporte_pasajero"));
                     pasajero.setPassword(rsPasajero.getString("password_pasajero"));
