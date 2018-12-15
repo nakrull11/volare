@@ -20,7 +20,7 @@ public class Vuelo {
     private boolean refuerzo;
     private Aeropuerto aeropuertoSalida;
     private Aeropuerto aeropuertoLlegada;
-    private Estado estado;
+    private String estado;
     private Avion avion;
     
     public String toString(){
@@ -82,11 +82,11 @@ public class Vuelo {
         this.aeropuertoLlegada = aeropuertoLlegada;
     }
 
-    public Estado getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

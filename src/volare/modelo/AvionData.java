@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,10 +20,12 @@ import java.sql.Statement;
 public class AvionData {
     
     private Connection connection = null;
+    private AsientoData asientoData;
     
     public AvionData(Conexion conexion){
         try {
             connection = conexion.getConexion();
+            asientoData = new AsientoData(conexion);
         } catch (SQLException ex) {
             System.out.println("Error al establecer la conexión");
         }
@@ -31,18 +35,25 @@ public class AvionData {
     
     public Avion obtenerAvion(int id){
         Avion avion = null;
-        /*String sql = "SELECT * FROM avion WHERE id_avion = ?;";
+        try {
+            
+            String sql = "SELECT * FROM avion WHERE id_avion = ?;";
             PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
-            ResultSet rs = ps.executeUpdate();
-        while (rs.next()){
-            Avion avion = new Avion();
-            avion.setId(rs.getInt("id_avion"));
-            avion.setModelo(rs.getString("modelo_avion"));
-            ;
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                avion = new Avion();
+                avion.setId(rs.getInt("id_avion"));
+                avion.setModelo(rs.getString("modelo_avion"));
+                avion.setAsiento(rs.getInt("asiento_avion"));
+                
+                
+            }
             
-        }*/
-        
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AvionData.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return avion;
     }
     

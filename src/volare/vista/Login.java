@@ -75,7 +75,6 @@ public class Login extends javax.swing.JInternalFrame {
         setTitle("Sign in\n");
         setFrameIcon(null);
         setName(""); // NOI18N
-        setOpaque(true);
 
         jbIngresar.setBackground(new java.awt.Color(0, 204, 51));
         jbIngresar.setFont(new java.awt.Font("Myriad Pro Light", 1, 18)); // NOI18N

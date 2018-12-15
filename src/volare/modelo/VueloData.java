@@ -24,36 +24,41 @@ public class VueloData{
     
     private Connection connection = null;
     private  AeropuertoData aeropuertoData=null; 
+    private AvionData avionData = null;
     public VueloData(Conexion conexion) {
        try {
             connection = conexion.getConexion();
             aeropuertoData = new AeropuertoData(conexion);
+            avionData = new AvionData (conexion);
         } catch (SQLException ex) {
             System.out.println("Error al establecer la conexión");
         }
     }
     
-    public List<Vuelo> consultarVuelos(Ciudad ciudadDestino){
+    public List<Vuelo> consultarVuelos(Ciudad ciudadOrigen,Ciudad ciudadDestino){
         List<Vuelo> vuelos = new ArrayList<>();
         try {
-            
-            
-            String sql =    "SELECT * FROM vuelo WHERE vuelo.id_aeropuerto_llegada= ? ";
+            String sql ="SELECT * FROM vuelo WHERE vuelo.id_aeropuerto_salida= ? AND vuelo.id_aeropuerto_llegada = ? ;";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, ciudadDestino.getId());
+            ps.setInt(1, ciudadOrigen.getId());
+            ps.setInt(2, ciudadDestino.getId());
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Vuelo vuelo = new Vuelo ();
+                vuelo.setId(rs.getInt("id_vuelo"));
                 vuelo.setFechaLlegada(rs.getDate("fechallegada_vuelo"));
                 vuelo.setFechaSalida(rs.getDate("fechasalida_vuelo"));
                 vuelo.setPrecio(rs.getFloat("precio_vuelo"));
                 vuelo.setRefuerzo(rs.getBoolean("refuerzo_vuelo"));
+                vuelo.setEstado(rs.getString("estado_vuelo"));
                 Aeropuerto aeropuerto = new Aeropuerto();
                 aeropuerto = aeropuertoData.buscarAeropuerto(rs.getInt("id_aeropuerto_llegada"));
                 vuelo.setAeropuertoLlegada(aeropuerto);
                 Aeropuerto aeropuertoSalida = new Aeropuerto();
-                aeropuertoSalida = aeropuertoData.buscarAeropuerto(rs.getInt("id_aeropuerto_salidad"));
-                
+                aeropuertoSalida = aeropuertoData.buscarAeropuerto(rs.getInt("id_aeropuerto_salida"));
+                Avion avion = new Avion();
+                avion = avionData.obtenerAvion(rs.getInt("id_avion"));
+                vuelo.setAvion(avion);
                 vuelos.add(vuelo);
                 
                 

@@ -32,28 +32,30 @@ public class AsientoData {
     
     
     
-    public List<Asiento> obtenerAsientosDisponibles(){
+    public List<Asiento> obtenerAsientosDisponiblesAvion(Avion avion){
         List<Asiento> asientos = new ArrayList <>();
         try {
-            String sql ="SELECT * FROM asiento WHERE estado_asiento = false;";
+            String sql ="SELECT * FROM asiento WHERE estado_asiento = false AND asiento.id_avion= ? ;";
             PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, avion.getId());
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Asiento asiento = new Asiento();
                 asiento.setEstado(rs.getBoolean("estado_asiento"));
                 asiento.setNumero(rs.getString("numero_asiento"));
                 asiento.setPasillo(rs.getBoolean("pasillo_asiento"));
-                
-                
-            }
+                asiento.setIdAvion(avion);
+                asiento.setId(rs.getInt("id_asiento"));
+                asientos.add(asiento);
+                }
         } catch (SQLException ex) {
-            Logger.getLogger(AsientoData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al obtener la lista de asientos :"+ex.getMessage());
         }
         return asientos;
     }
     
-    public List<Asiento> obtenerAsientosAvion(Avion avion){
-        List<Asiento> asientos = new ArrayList <> ();
+    public ArrayList<Asiento> obtenerAsientosAvion(Avion avion){
+        ArrayList<Asiento> asientos = new ArrayList <> ();
         try {
             
             
@@ -62,14 +64,18 @@ public class AsientoData {
             ps.setInt(1, avion.getId());
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                
-                
-                
+                Asiento asiento = new Asiento ();
+                asiento.setEstado(rs.getBoolean("estado_asiento"));
+                asiento.setNumero(rs.getString("numero_asiento"));
+                asiento.setPasillo(rs.getBoolean("pasillo_asiento"));
+                asiento.setIdAvion(avion);
+                asiento.setId(rs.getInt("id_asiento")); 
+                asientos.add(asiento);
             }
             
                       
         } catch (SQLException ex) {
-            Logger.getLogger(AsientoData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al obtener la lista de asientos :"+ex.getMessage());
         }
        return asientos;   
     }

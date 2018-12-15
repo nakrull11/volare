@@ -14,18 +14,18 @@ public class Compra {
     private Pasajero pasajero;
     private Asiento asiento;
     private float precio;
-    private Estado estado;
+    private String estado;
     
     
     @Override
     public String toString(){
         return  fechaReserva+" "+vuelo+" "+pasajero+" "+asiento+" "+precio+" "+estado;
     }
-    public void setEstado(Estado estado){
+    public void setEstado(String estado){
         this.estado=estado;
     }
     
-    public Estado getEstado(){
+    public String getEstado(){
         return estado;
     }
 

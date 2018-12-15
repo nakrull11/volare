@@ -5,6 +5,7 @@
  */
 package volare.modelo;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 public class Avion {
     private int id;
     private String modelo;
-    private ArrayList<Asiento>asiento;
+    private int asiento;
     private Aerolinea cuitAerolinea;
 
-    public Avion( String modelo, ArrayList<Asiento> asiento, Aerolinea cuitAerolinea) {
+    public Avion( String modelo, int asiento, Aerolinea cuitAerolinea) {
         this.id = -1;
         this.modelo = modelo;
         this.asiento = asiento;
@@ -32,8 +33,8 @@ public class Avion {
         return id+"-"+modelo+"-"+asiento+"-"+cuitAerolinea;
     }
     
-    public void agregarAsiento(Asiento asiento){
-        this.asiento.add(asiento);
+    public void agregarAsiento(int asiento){
+        this.asiento = asiento;
     }
     public int getId() {
         return id;
@@ -51,11 +52,11 @@ public class Avion {
         this.modelo = modelo;
     }
 
-    public ArrayList<Asiento> getAsiento() {
+    public int getAsiento() {
         return asiento;
     }
 
-    public void setAsiento(ArrayList<Asiento> asiento) {
+    public void setAsiento(int asiento) {
         this.asiento = asiento;
     }
 

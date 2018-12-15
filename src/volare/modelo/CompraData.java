@@ -64,11 +64,7 @@ public class CompraData{
             ps.setDate(1, fechaMenor);
             ps.setDate(2, fechaMayor);
             ResultSet resultado = ps.executeQuery();
-            
-            
- 
-            
-            while(resultado.next()){
+             while(resultado.next()){
                Pasajero pasajero = new Pasajero();//Se crea el pasajero para agregar a a lista                
                pasajero.setDni(resultado.getInt("dni_pasajero"));//Se setea el dni de la tabla
                 String sqlPasajero = "SELECT * FROM pasajero WHERE dni_pasajero="+" "+pasajero.getDni()+";";//Se seleciona todos los datos
@@ -106,18 +102,10 @@ public class CompraData{
                     Avion avion = new Avion ();
                     String sqlAvion = "SELECT * FROM avion WHERE";
                 }
-               Estado estado = new Estado();
-               estado.setId(resultado.getInt("id_estado"));
-                String sqlEstado = "SELECT * FROM estado WHERE id_estado="+" "+estado.getId()+";";
-                PreparedStatement psEstado = connection.prepareStatement(sqlEstado, Statement.RETURN_GENERATED_KEYS);
-                ResultSet rsEstado = psEstado.executeQuery();
-                while(rsEstado.next()){
-                    estado.setDisponibilidad(rsEstado.getString("disponibilidad"));
-                    
-                }
+              
                Compra compra = new Compra();
                compra.setPrecio(7500);
-               compra.setEstado(estado);
+               compra.setEstado("normal");//se ingresa el estado por defecto "normal"
                compra.setFechaReserva(resultado.getDate("fecha_reserva"));
                compra.setVuelo(vuelo);
                compra.setPasajero(pasajero);

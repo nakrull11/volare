@@ -29,7 +29,7 @@ public class Asiento {
     
     @Override
     public String toString(){
-        return id+"-"+numero+"-"+pasillo+"-"+estado+"-"+idAvion;
+        return "\n"+"Id Asiento: "+id+"\n"+"Numero Asiento: "+numero+"\n"+"Sobre el pasillo? :"+pasillo+"\n"+"Libre? :"+estado+"\n"+"Avion :"+idAvion;
     }
 
     public int getId() {

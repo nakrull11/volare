@@ -19,10 +19,12 @@ import java.util.List;
  */
 public class AeropuertoData {
     private Connection connection = null;
+    private CiudadData ciudadData = null;
     
     public AeropuertoData(Conexion conexion) {
        try {
             connection = conexion.getConexion();
+            ciudadData = new CiudadData (conexion);
         } catch (SQLException ex) {
             System.out.println("Error al establecer la conexión");
         }
@@ -102,6 +104,10 @@ public class AeropuertoData {
              while(resultSet.next()){
                  aeropuerto= new Aeropuerto();
                  aeropuerto.setCodigo(resultSet.getString("codigo_aeropuerto"));
+                 Ciudad ciudad = new Ciudad();
+                 ciudad = ciudadData.obtenerCiudad(resultSet.getInt("id_ciudad"));
+                 aeropuerto.setCiudad(ciudad);
+                 aeropuerto.setId(resultSet.getInt("id_aeropuerto"));
              }
              statement.close();
          } catch (SQLException ex) {
