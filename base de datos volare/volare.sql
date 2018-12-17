@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-12-2018 a las 17:54:46
+-- Tiempo de generación: 17-12-2018 a las 07:42:30
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -82,11 +82,19 @@ CREATE TABLE `asiento` (
 --
 
 INSERT INTO `asiento` (`id_asiento`, `numero_asiento`, `pasillo_asiento`, `estado_asiento`, `id_avion`) VALUES
-(1, 'A45', b'0', b'1', 1),
-(5, 'A46', b'0', b'1', 1),
+(1, 'A45', b'0', b'0', 1),
+(5, 'A46', b'0', b'0', 1),
 (6, 'A47', b'0', b'0', 1),
 (7, 'A48', b'0', b'0', 1),
-(8, 'A49', b'0', b'0', 1);
+(8, 'A49', b'0', b'0', 1),
+(9, 'A50', b'0', b'0', 1),
+(10, 'A51', b'0', b'0', 1),
+(11, 'A52', b'0', b'0', 1),
+(12, 'A45', b'0', b'0', 4),
+(13, 'A46', b'0', b'0', 4),
+(14, 'A47', b'0', b'0', 4),
+(15, 'A48', b'0', b'0', 4),
+(16, 'A49', b'0', b'0', 4);
 
 -- --------------------------------------------------------
 
@@ -142,18 +150,11 @@ INSERT INTO `ciudad` (`id_ciudad`, `nombre_ciudad`, `id_provincia`) VALUES
 CREATE TABLE `compra` (
   `id_compra` int(11) NOT NULL,
   `fecha_reserva` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `estado_compra` varchar(15) NOT NULL,
   `id_vuelo` int(11) NOT NULL,
   `dni_pasajero` int(11) NOT NULL,
-  `id_asiento` int(11) NOT NULL,
-  `id_estado` tinyint(11) NOT NULL
+  `id_asiento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `compra`
---
-
-INSERT INTO `compra` (`id_compra`, `fecha_reserva`, `id_vuelo`, `dni_pasajero`, `id_asiento`, `id_estado`) VALUES
-(3, '2018-12-04 02:57:48', 1, 37723905, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -211,7 +212,6 @@ CREATE TABLE `pasajero` (
   `nombre_pasajero` varchar(60) NOT NULL,
   `apellido_pasajero` varchar(40) NOT NULL,
   `fechanacimiento_pasajero` date NOT NULL,
-  `tarjeta_pasajero` tinyint(4) NOT NULL,
   `password_pasajero` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -219,12 +219,19 @@ CREATE TABLE `pasajero` (
 -- Volcado de datos para la tabla `pasajero`
 --
 
-INSERT INTO `pasajero` (`dni_pasajero`, `pasaporte_pasajero`, `correo_pasajero`, `nombre_pasajero`, `apellido_pasajero`, `fechanacimiento_pasajero`, `tarjeta_pasajero`, `password_pasajero`) VALUES
-(4123654, 3781432, 'juanperez@gmail.com', 'juan', 'perez', '1975-03-22', 95, 'password21'),
-(18123165, NULL, 'gonzalesmartin@gmail.com', 'martin', 'gonzales', '1983-08-15', 111, 'martincho20'),
-(37723905, NULL, 'gusguz1994@gmail.com', 'Gustavo', 'Rivarola', '1994-03-21', 123, 'pass1994'),
-(38220411, NULL, 'micaelajquiroga@gmail.com', 'micaela', 'quiroga', '1996-02-01', 112, 'quiroga333'),
-(39990611, NULL, 'reybarbi1709', 'barbara', 'rey', '1997-04-12', 126, 'barbarapass233');
+INSERT INTO `pasajero` (`dni_pasajero`, `pasaporte_pasajero`, `correo_pasajero`, `nombre_pasajero`, `apellido_pasajero`, `fechanacimiento_pasajero`, `password_pasajero`) VALUES
+(12345, NULL, 'admin', 'admin', 'admin', '2018-12-09', '1234'),
+(123456, 0, 'mrodrig@gmail.com', 'martin', 'rodriguez', '1986-05-12', 'asd123'),
+(4123654, 3781432, 'juanperez@gmail.com', 'juan', 'perez', '1975-03-22', 'password21'),
+(18123165, NULL, 'gonzalesmartin@gmail.com', 'martin', 'gonzales', '1983-08-15', 'martincho20'),
+(27784987, 0, 'dangonza@gmail.com', 'daniel', 'gonzales', '1986-02-23', 'dani19976'),
+(35569987, 2223, 'aleramirez88@gmail.com', 'alejandra', 'ramirez', '1988-12-01', 'tobi1887'),
+(35657789, 33256, 'gonzaro@gmail.com', 'gonzalo', 'rodriguez', '1984-02-03', 'gonzacapo92'),
+(36395345, 0, 'rodricaceres@gmail.com', 'rodrigo', 'caceres', '1997-12-02', '1234password'),
+(37723905, NULL, 'gusguz1994@gmail.com', 'Gustavo', 'Rivarola', '1994-03-21', 'pass1994'),
+(38220411, NULL, 'micaelajquiroga@gmail.com', 'micaela', 'quiroga', '1996-02-01', 'quiroga333'),
+(39990611, NULL, 'reybarbi1709', 'barbara', 'rey', '1997-04-12', 'barbarapass233'),
+(43552172, 0, 'rctalquenca@live.com', 'rocio', 'talquenca', '2001-06-03', 'tanbionica');
 
 -- --------------------------------------------------------
 
@@ -251,29 +258,6 @@ INSERT INTO `provincia` (`id_provincia`, `nombre_provincia`, `id_pais`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `representante`
---
-
-CREATE TABLE `representante` (
-  `credencial_representante` int(11) NOT NULL,
-  `nombre_representante` tinytext NOT NULL,
-  `apellido_representante` tinytext NOT NULL,
-  `dni_representante` int(11) NOT NULL,
-  `password_representante` varchar(20) NOT NULL,
-  `cuit_aerolinea` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `representante`
---
-
-INSERT INTO `representante` (`credencial_representante`, `nombre_representante`, `apellido_representante`, `dni_representante`, `password_representante`, `cuit_aerolinea`) VALUES
-(111987, 'Monica', 'Lopez', 29556541, 'monic1994', 176),
-(123456, 'Pedro', 'Gonzales', 35123164, 'pedro123', 12345);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `vuelo`
 --
 
@@ -283,19 +267,23 @@ CREATE TABLE `vuelo` (
   `fechasalida_vuelo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `fechallegada_vuelo` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `refuerzo_vuelo` bit(1) DEFAULT NULL,
+  `estado_vuelo` varchar(15) NOT NULL,
   `id_aeropuerto_salida` smallint(6) NOT NULL,
   `id_aeropuerto_llegada` smallint(6) NOT NULL,
-  `id_avion` int(11) NOT NULL,
-  `id_estado` tinyint(4) NOT NULL
+  `id_avion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `vuelo`
 --
 
-INSERT INTO `vuelo` (`id_vuelo`, `precio_vuelo`, `fechasalida_vuelo`, `fechallegada_vuelo`, `refuerzo_vuelo`, `id_aeropuerto_salida`, `id_aeropuerto_llegada`, `id_avion`, `id_estado`) VALUES
-(1, 7500, '2018-11-26 23:08:56', '2018-11-27 22:30:00', b'0', 1, 4, 1, 4),
-(2, 5500, '2018-11-27 00:43:51', '2018-11-28 02:40:00', b'0', 1, 5, 3, 4);
+INSERT INTO `vuelo` (`id_vuelo`, `precio_vuelo`, `fechasalida_vuelo`, `fechallegada_vuelo`, `refuerzo_vuelo`, `estado_vuelo`, `id_aeropuerto_salida`, `id_aeropuerto_llegada`, `id_avion`) VALUES
+(1, 7500, '2018-12-15 20:45:56', '2018-12-16 13:00:00', NULL, 'normal', 1, 4, 1),
+(2, 7500, '2018-12-15 20:58:56', '2018-12-16 19:00:00', NULL, 'normal', 1, 5, 1),
+(3, 7500, '2018-12-15 20:58:08', '2018-12-17 19:00:00', NULL, 'normal', 1, 6, 1),
+(4, 8500, '2018-12-17 05:40:39', '2018-12-19 13:00:00', b'0', 'normal', 1, 6, 4),
+(5, 9500, '2018-12-17 06:00:24', '2018-12-19 16:00:00', b'0', 'normal', 5, 1, 4),
+(6, 5200, '2018-12-17 06:00:24', '2018-12-19 16:00:00', b'0', 'normal', 4, 5, 4);
 
 --
 -- Índices para tablas volcadas
@@ -340,10 +328,9 @@ ALTER TABLE `ciudad`
 --
 ALTER TABLE `compra`
   ADD PRIMARY KEY (`id_compra`),
-  ADD UNIQUE KEY `numero_pasaporte` (`dni_pasajero`),
   ADD UNIQUE KEY `numero_asiento` (`id_asiento`) USING BTREE,
-  ADD KEY `id_estado` (`id_estado`),
-  ADD KEY `id_vuelo` (`id_vuelo`) USING BTREE;
+  ADD KEY `id_vuelo` (`id_vuelo`) USING BTREE,
+  ADD KEY `numero_pasaporte` (`dni_pasajero`) USING BTREE;
 
 --
 -- Indices de la tabla `estado`
@@ -371,20 +358,12 @@ ALTER TABLE `provincia`
   ADD KEY `id_pais` (`id_pais`);
 
 --
--- Indices de la tabla `representante`
---
-ALTER TABLE `representante`
-  ADD PRIMARY KEY (`credencial_representante`),
-  ADD UNIQUE KEY `cuit_aerolinea` (`cuit_aerolinea`);
-
---
 -- Indices de la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
   ADD PRIMARY KEY (`id_vuelo`) USING BTREE,
   ADD KEY `vuelo_ibfk_2` (`id_aeropuerto_llegada`),
   ADD KEY `vuelo_ibfk_3` (`id_avion`),
-  ADD KEY `vuelo_ibfk_4` (`id_estado`),
   ADD KEY `codigo_aeropuerto(_salida)` (`id_aeropuerto_salida`,`id_aeropuerto_llegada`,`id_avion`) USING BTREE;
 
 --
@@ -401,7 +380,7 @@ ALTER TABLE `aeropuerto`
 -- AUTO_INCREMENT de la tabla `asiento`
 --
 ALTER TABLE `asiento`
-  MODIFY `id_asiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_asiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `avion`
@@ -419,7 +398,7 @@ ALTER TABLE `ciudad`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
@@ -443,7 +422,7 @@ ALTER TABLE `provincia`
 -- AUTO_INCREMENT de la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
-  MODIFY `id_vuelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_vuelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -479,8 +458,7 @@ ALTER TABLE `ciudad`
 ALTER TABLE `compra`
   ADD CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`dni_pasajero`) REFERENCES `pasajero` (`dni_pasajero`),
   ADD CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`id_vuelo`) REFERENCES `vuelo` (`id_vuelo`),
-  ADD CONSTRAINT `compra_ibfk_3` FOREIGN KEY (`id_asiento`) REFERENCES `asiento` (`id_asiento`),
-  ADD CONSTRAINT `compra_ibfk_4` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`);
+  ADD CONSTRAINT `compra_ibfk_3` FOREIGN KEY (`id_asiento`) REFERENCES `asiento` (`id_asiento`);
 
 --
 -- Filtros para la tabla `provincia`
@@ -489,19 +467,12 @@ ALTER TABLE `provincia`
   ADD CONSTRAINT `provincia_ibfk_1` FOREIGN KEY (`id_pais`) REFERENCES `pais` (`id_pais`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `representante`
---
-ALTER TABLE `representante`
-  ADD CONSTRAINT `representante_ibfk_1` FOREIGN KEY (`cuit_aerolinea`) REFERENCES `aerolinea` (`cuit_aerolinea`);
-
---
 -- Filtros para la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
   ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`id_aeropuerto_salida`) REFERENCES `aeropuerto` (`id_aeropuerto`) ON UPDATE CASCADE,
   ADD CONSTRAINT `vuelo_ibfk_2` FOREIGN KEY (`id_aeropuerto_llegada`) REFERENCES `aeropuerto` (`id_aeropuerto`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `vuelo_ibfk_3` FOREIGN KEY (`id_avion`) REFERENCES `avion` (`id_avion`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `vuelo_ibfk_4` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `vuelo_ibfk_3` FOREIGN KEY (`id_avion`) REFERENCES `avion` (`id_avion`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
