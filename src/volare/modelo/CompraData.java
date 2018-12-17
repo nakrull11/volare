@@ -25,10 +25,16 @@ import java.util.logging.Logger;
  */
 public class CompraData{
     private Connection connection = null;
+    private AsientoData asientoData = null;
+    private VueloData vueloData = null;
+    private PasajeroData pasajeroData = null;
     
     public CompraData(Conexion conexion){
         try {
             connection = conexion.getConexion();
+            asientoData = new AsientoData(conexion);
+            vueloData = new VueloData(conexion);
+            pasajeroData = new PasajeroData(conexion);
             
         } catch (SQLException ex) {
             System.out.println("Error al establecer la conexión");
@@ -36,90 +42,71 @@ public class CompraData{
     
     }
     
-    public boolean comprarAsiento(Asiento asiento){
+    public void comprarAsiento(Asiento asiento){
         try {
             String sql = "UPDATE asiento SET estado_asiento = ? WHERE id_asiento= ? ;";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setBoolean(1, false);
+            ps.setBoolean(1, true);
             ps.setInt(2, asiento.getId());
             ps.executeUpdate();
             ps.close();
             ResultSet rs = ps.executeQuery();
         } catch (SQLException ex) {
             System.out.println("Error al comprar el asiento"+ex.getMessage());
-            return false;
+            
         }
-        return true;
+        
+    }
+    
+    public void generarCompra(int idVuelo,int dni,int idAsiento){
+        
+        try {
+            String sql ="INSERT INTO compra (fecha_reserva,estado_compra,id_vuelo,dni_pasajero,id_asiento) VALUES (CURRENT_TIMESTAMP,'normal', ? , ? , ? );";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idVuelo);
+            ps.setInt(2, dni);
+            ps.setInt(3, idAsiento);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al generar la compra: "+ex.getMessage());
+          
+        }
+                                    
     }
     
     
     
-    public List<Compra> consultarCompras(Date fechaMenor,Date fechaMayor){               
+    /*public List<Compra> consultarCompras(int dni){               
+        
         List<Compra> compras = new ArrayList<>();
-        PasajeroData pasajeroData=null;
         try {
             
-            String sql="SELECT fecha_reserva,id_vuelo,dni_pasajero,id_asiento,id_estado FROM compra c WHERE c.fecha_reserva > ? AND c.fecha_reserva < ?;";
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setDate(1, fechaMenor);
-            ps.setDate(2, fechaMayor);
-            ResultSet resultado = ps.executeQuery();
-             while(resultado.next()){
-               Pasajero pasajero = new Pasajero();//Se crea el pasajero para agregar a a lista                
-               pasajero.setDni(resultado.getInt("dni_pasajero"));//Se setea el dni de la tabla
-                String sqlPasajero = "SELECT * FROM pasajero WHERE dni_pasajero="+" "+pasajero.getDni()+";";//Se seleciona todos los datos
-                PreparedStatement psPasajero = connection.prepareStatement(sqlPasajero, Statement.RETURN_GENERATED_KEYS);
-                ResultSet rsPasajero = psPasajero.executeQuery();
-                while(rsPasajero.next()){//Se carga todos los datos del pasajero
-                    pasajero.setNombre(rsPasajero.getString("nombre_pasajero"));
-                    pasajero.setApellido(rsPasajero.getString("apellido_pasajero"));
-                    pasajero.setCorreoElectronico(rsPasajero.getString("correo_pasajero"));
-                    pasajero.setFechaNacimiento(rsPasajero.getDate("fechanacimiento_pasajero").toLocalDate());
-                    pasajero.setNumeroTarjeta(rsPasajero.getInt("tarjeta_pasajero"));
-                    pasajero.setPasaporte(rsPasajero.getInt("pasaporte_pasajero"));
-                    pasajero.setPassword(rsPasajero.getString("password_pasajero"));
-                }
-               Vuelo vuelo = new Vuelo();//Se crea el vuelo
-               vuelo.setId(resultado.getInt("id_vuelo"));//Se le setea el id
-                String sqlVuelo= "SELECT * FROM vuelo WHERE id_vuelo="+" "+vuelo.getId()+";";//Se seleciona todos los vuelos que corresponde a ese id
-                PreparedStatement psVuelo = connection.prepareStatement(sqlVuelo, Statement.RETURN_GENERATED_KEYS);
-                ResultSet rsVuelo = psVuelo.executeQuery();
-                while(rsVuelo.next()){//Se carga el vuelo con los datos del result set
-                    vuelo.setPrecio(rsVuelo.getFloat("precio_vuelo"));
-                    vuelo.setFechaSalida(rsVuelo.getDate("fechasalida_vuelo"));
-                    vuelo.setFechaLlegada(rsVuelo.getDate("fechallegada_vuelo"));
-                    vuelo.setRefuerzo(rsVuelo.getBoolean("refuerzo_vuelo"));          
-                }
-               Asiento asiento = new Asiento();
-               asiento.setId(resultado.getInt("id_asiento"));
-                String sqlAsiento = "SELECT * FROM asiento WHERE id_asiento="+" "+asiento.getId()+";";
-                PreparedStatement psAsiento = connection.prepareStatement(sqlAsiento,Statement.RETURN_GENERATED_KEYS);
-                ResultSet rsAsiento = psAsiento.executeQuery();
-                while(rsAsiento.next()){
-                    asiento.setEstado(rsAsiento.getBoolean("estado_asiento"));
-                    asiento.setNumero(rsAsiento.getString("numero_asiento"));
-                    asiento.setPasillo(rsAsiento.getBoolean("pasillo_asiento"));
-                    Avion avion = new Avion ();
-                    String sqlAvion = "SELECT * FROM avion WHERE";
-                }
-              
-               Compra compra = new Compra();
-               compra.setPrecio(7500);
-               compra.setEstado("normal");//se ingresa el estado por defecto "normal"
-               compra.setFechaReserva(resultado.getDate("fecha_reserva"));
-               compra.setVuelo(vuelo);
-               compra.setPasajero(pasajero);
-               compra.setNumeroAsiento(asiento);
-               compras.add(compra);
-               
-               
-               
+            
+            String sql="SELECT * FROM compras WHERE compras.dni_pasajero = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, dni);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Compra compra = new Compra();
+                compra.setEstado(rs.getString("estado_compra"));
+                compra.setFechaReserva(rs.getDate("fecha_reserva"));
+                compra.setId(rs.getInt("id_compra"));
+                //Asiento asiento = asientoData.obtenerAsiento(rs.getInt("id_asiento"));
+                //compra.setNumeroAsiento(asiento);
+                Vuelo vuelo = vueloData.consultarVuelo(rs.getInt("id_vuelo"));
+                compra.setVuelo(vuelo);
+                Pasajero pasajero = pasajeroData.obtenerPasajero(dni);
+                compra.setPasajero(pasajero);
+                compras.add(compra);
                 
-             }
+            }
+                            
         } catch (SQLException ex) {
-            System.out.println("Error al obtener la lista de precios :"+ex.getMessage());
+            System.out.println("Error al obtener la lista de compras: "+ex.getMessage());
         }
+        
         return compras;
-    }
+    }*/
     
 }

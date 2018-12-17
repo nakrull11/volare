@@ -21,11 +21,13 @@ public class AvionData {
     
     private Connection connection = null;
     private AsientoData asientoData;
+    private AerolineaData aerolineaData = null;
     
     public AvionData(Conexion conexion){
         try {
             connection = conexion.getConexion();
             asientoData = new AsientoData(conexion);
+            aerolineaData = new AerolineaData (conexion);
         } catch (SQLException ex) {
             System.out.println("Error al establecer la conexión");
         }
@@ -46,13 +48,13 @@ public class AvionData {
                 avion.setId(rs.getInt("id_avion"));
                 avion.setModelo(rs.getString("modelo_avion"));
                 avion.setAsiento(rs.getInt("asiento_avion"));
-                
+                avion.setCuitAerolinea(aerolineaData.obtenerAerolinea(rs.getInt("cuit_aerolinea")));
                 
             }
             
             
         } catch (SQLException ex) {
-            Logger.getLogger(AvionData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al obtener el avion: "+ex.getMessage());
         }
         return avion;
     }

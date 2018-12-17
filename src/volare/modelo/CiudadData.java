@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,6 +50,27 @@ public class CiudadData {
             Logger.getLogger(CiudadData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ciudad;
+    }
+    
+    public ArrayList<Ciudad> obtenerCiudades(){
+        ArrayList<Ciudad> ciudades = new ArrayList <>();
+            try {
+            String sql = "SELECT * FROM ciudad ;";
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Ciudad ciudad = new Ciudad();
+                ciudad.setId(rs.getInt("id_ciudad"));
+                ciudad.setNombre(rs.getString("nombre_ciudad"));
+                ciudad.setProvincia(provinciaData.obtenerProvincia(rs.getInt("id_provincia")));
+                ciudades.add(ciudad);
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al recibir la lista de ciudades: "+ex.getMessage());
+        }
+        
+        return ciudades;
     }
     
     

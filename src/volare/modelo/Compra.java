@@ -13,13 +13,12 @@ public class Compra {
     private Vuelo vuelo;
     private Pasajero pasajero;
     private Asiento asiento;
-    private float precio;
     private String estado;
     
     
     @Override
     public String toString(){
-        return  fechaReserva+" "+vuelo+" "+pasajero+" "+asiento+" "+precio+" "+estado;
+        return  fechaReserva+" "+vuelo+" "+pasajero+" "+asiento+" "+estado;
     }
     public void setEstado(String estado){
         this.estado=estado;
@@ -67,14 +66,6 @@ public class Compra {
 
     public void setNumeroAsiento(Asiento numeroAsiento) {
         this.asiento = numeroAsiento;
-    }
-
-    public float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
     }
 
 }

@@ -5,19 +5,34 @@
  */
 package volare.vista;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import volare.modelo.Compra;
+import volare.modelo.CompraData;
+import volare.modelo.Conexion;
+import volare.modelo.PasajeroData;
+
 /**
  *
  * @author Usuario
  */
 public class Compras extends javax.swing.JInternalFrame {
+    
+    
+    private CompraData compraData;
+    private PasajeroData pasajeroData;
+    private ArrayList<Compra> listaDeCompras;
+    private Conexion conexion;
 
     /**
      * Creates new form Compras
      */
     public Compras() {
         initComponents();
-    }
-
+        }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,15 +42,19 @@ public class Compras extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextFieldDniCompras = new javax.swing.JTextField();
-        jPasswordCompras = new javax.swing.JPasswordField();
+        jtDniCompras = new javax.swing.JTextField();
+        jpCompras = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabelComprasIngreso = new javax.swing.JLabel();
         jButtonIngresarCompras = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabelCancelarCompra = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
+        jlDni = new javax.swing.JLabel();
+        jlPassword = new javax.swing.JLabel();
+        cbControl = new javax.swing.JCheckBox();
 
+        setBackground(new java.awt.Color(102, 102, 255));
+        setBorder(null);
         setPreferredSize(new java.awt.Dimension(488, 399));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -51,13 +70,47 @@ public class Compras extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jLabelComprasIngreso.setFont(new java.awt.Font("Myriad Pro Light", 1, 18)); // NOI18N
+        jLabelComprasIngreso.setForeground(new java.awt.Color(255, 255, 255));
         jLabelComprasIngreso.setText("Ingresa al sistema para controlar tus compras");
 
+        jButtonIngresarCompras.setBackground(new java.awt.Color(0, 204, 51));
+        jButtonIngresarCompras.setFont(new java.awt.Font("Myriad Pro Light", 1, 14)); // NOI18N
+        jButtonIngresarCompras.setForeground(new java.awt.Color(255, 255, 255));
         jButtonIngresarCompras.setText("Ingresar");
+        jButtonIngresarCompras.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonIngresarCompras.setContentAreaFilled(false);
+        jButtonIngresarCompras.setOpaque(true);
+        jButtonIngresarCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIngresarComprasActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCancelar.setFont(new java.awt.Font("Myriad Pro Light", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancelar.setContentAreaFilled(false);
+        btnCancelar.setEnabled(false);
+        btnCancelar.setOpaque(true);
 
-        jLabelCancelarCompra.setText("Puede cancelar su compra seleccionada");
+        jlDni.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jlDni.setForeground(new java.awt.Color(255, 255, 255));
+        jlDni.setText("DNI");
+
+        jlPassword.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jlPassword.setForeground(new java.awt.Color(255, 255, 255));
+        jlPassword.setText("Password");
+
+        cbControl.setForeground(new java.awt.Color(255, 255, 255));
+        cbControl.setText("Estoy de acuerdo con las politicas de la empresa.");
+        cbControl.setOpaque(false);
+        cbControl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbControlActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,55 +119,92 @@ public class Compras extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelComprasIngreso)
-                            .addComponent(jButton2)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButtonIngresarCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldDniCompras))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlDni)
+                                    .addComponent(jlPassword))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPasswordCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelCancelarCompra))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jpCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtDniCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonIngresarCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(188, 188, 188)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addComponent(cbControl)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jLabelComprasIngreso)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtDniCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlDni))
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jpCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlPassword)))
+                    .addComponent(jButtonIngresarCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDniCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addComponent(cbControl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonIngresarCompras)
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelCancelarCompra)
-                .addGap(4, 4, 4)
-                .addComponent(jButton2)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbControlActionPerformed
+        // TODO add your handling code here:
+        
+        btnCancelar.setEnabled(cbControl.isSelected());
+    }//GEN-LAST:event_cbControlActionPerformed
+
+    private void jButtonIngresarComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarComprasActionPerformed
+        // TODO add your handling code here:
+        /*String dni = jtDniCompras.getText();
+        
+        String passwordCon =jpCompras.getText();
+        
+        String password =pasajeroData.obtenerPassPasajero(Integer.parseInt(dni));
+        
+        if(passwordCon.equals(password)){
+            
+            JOptionPane.showMessageDialog(this, "bien");
+            
+            
+        }else JOptionPane.showMessageDialog(this, "MAL");
+        */
+    }//GEN-LAST:event_jButtonIngresarComprasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JCheckBox cbControl;
     private javax.swing.JButton jButtonIngresarCompras;
-    private javax.swing.JLabel jLabelCancelarCompra;
     private javax.swing.JLabel jLabelComprasIngreso;
-    private javax.swing.JPasswordField jPasswordCompras;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldDniCompras;
+    private javax.swing.JLabel jlDni;
+    private javax.swing.JLabel jlPassword;
+    private javax.swing.JPasswordField jpCompras;
+    private javax.swing.JTextField jtDniCompras;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -114,6 +116,31 @@ public class AeropuertoData {
              System.out.println("Error al buscar el aeropuerto: "+ex.getMessage());
          }
         return aeropuerto;
+    }
+    
+    
+    public int idAeropuertoCiudad(Ciudad ciudad){
+        int id = -1;
+        try {
+            
+            String sql = "SELECT `id_aeropuerto` FROM aeropuerto WHERE aeropuerto.id_ciudad = ? ;";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, ciudad.getId());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                
+                id = rs.getInt("id_aeropuerto");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AeropuertoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return id;
+           
+        
+        
+        
     }
     
     

@@ -286,6 +286,7 @@ public class Login extends javax.swing.JInternalFrame {
             jPassword.setText(null);
             jtDocumento.setText(null);
             jtPasaporte.setText(null);
+            jCheckBoxPasaporte.setSelected(false);
             jtFechaNacimiento.setText("dd/mm/aaaa");
             JOptionPane.showMessageDialog(this,"Se ha registrado con exito,ahora puede reservar y gestionar sus vuelos");      
         }

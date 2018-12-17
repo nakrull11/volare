@@ -81,4 +81,30 @@ public class AsientoData {
     }
     
     
+    /*public Asiento obtenerAsiento(int id){
+        Asiento asiento = null;
+        try {
+            
+            String sql ="SELECT * FROM asiento WHERE id_asiento= ? ;";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                asiento = new Asiento();
+                asiento.setEstado(rs.getBoolean("estado_asiento"));
+                asiento.setNumero(rs.getString("numero_asiento"));
+                asiento.setPasillo(rs.getBoolean("pasillo_asiento"));
+                Avion avion = avionData.obtenerAvion(rs.getInt("id_avion"));
+                asiento.setIdAvion(avion);
+                asiento.setId(rs.getInt("id_asiento"));                            
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener al asiento: "+ex.getMessage());
+        }
+        
+        return asiento;      
+        
+    }*/
+    
+    
 }

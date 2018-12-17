@@ -162,7 +162,7 @@ public class Home extends javax.swing.JFrame {
         Vuelos vuelos = new Vuelos();
         vuelos.setVisible(true);
         escritorio.add(vuelos);
-        vuelos.setLocation(300, 80);
+        vuelos.setLocation(202, 80);
         escritorio.moveToFront(vuelos);
     }//GEN-LAST:event_jMenuVuelosMouseClicked
 

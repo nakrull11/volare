@@ -9,9 +9,11 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import volare.modelo.Aerolinea;
+import volare.modelo.AeropuertoData;
 import volare.modelo.AsientoData;
 import volare.modelo.Avion;
 import volare.modelo.AvionData;
@@ -48,7 +50,8 @@ public class Volare {
         VueloData vueloData=null;
         AvionData avionData=null;
         AsientoData asientoData = null;
-        
+        AeropuertoData aeropuertoData = null;
+        int contador=0;
 
                
 
@@ -61,17 +64,35 @@ public class Volare {
             compraData = new CompraData(conexion);
             ciudadData = new CiudadData(conexion);
             asientoData = new AsientoData(conexion);
+            aeropuertoData = new AeropuertoData(conexion);
             //paisData = new PaisData(conexion);
         } catch (ClassNotFoundException ex) {
             System.out.println("Error al establecer la conexion :"+ex.getMessage());
         }
-       Avion boeing = new Avion();
-       boeing = avionData.obtenerAvion(1);
+       
+        //System.out.println(ciudadData.obtenerCiudades());
+       
+        List <Pasajero> pasajeros = pasajeroData.obtenerPasajeros();
+        
+        contador = pasajeros.size();
+        
+        System.out.println(contador);
+        
+        
+        
+        
+       //pasajeroData.obtenerPasajeros().forEach(pasajero -> {;});
+       
+       
+       //Avion boeing = new Avion();
+       //boeing = avionData.obtenerAvion(1);
        Ciudad sanLuis = new Ciudad();
        sanLuis = ciudadData.obtenerCiudad(1);
        Ciudad laPaz = new Ciudad ();
        laPaz = ciudadData.obtenerCiudad(4);
-       System.out.println(vueloData.consultarVuelos(sanLuis, laPaz));
+       //System.out.println(aeropuertoData.idAeropuertoCiudad(laPaz));
+       
+       //System.out.println(vueloData.consultarVuelos(sanLuis, laPaz));
        //vueloData.consultarVuelos(ciudad, ciudad);
         //System.out.println(boeing);
        //System.out.println(avionData.obtenerAvion(1));
@@ -85,7 +106,8 @@ public class Volare {
        //System.out.println(compraData.consultarCompras(Date.valueOf("2018-12-02"),Date.valueOf("2018-12-05")));
        /*pasajeroData.obtenerPasajeros().forEach(pasajero -> {System.out.println(pasajero.toString());});*/
          
-               
+       
+             
       
        //pais = new Pais("PE","Peru");
        

@@ -6,15 +6,60 @@
 
 package volare.vista;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import volare.modelo.Asiento;
+import volare.modelo.AsientoData;
+import volare.modelo.Ciudad;
+import volare.modelo.CiudadData;
+import volare.modelo.CompraData;
+import volare.modelo.Conexion;
+import volare.modelo.PasajeroData;
+import volare.modelo.Vuelo;
+import volare.modelo.VueloData;
+
 /**
  *
  * @author Usuario
  */
 public class Vuelos extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel modelo;
+    private CompraData compraData;
+    private ArrayList<Ciudad> listaCiudad;
+    private ArrayList<Vuelo> listaVuelos;
+    private CiudadData ciudadData;
+    private VueloData vueloData;
+    private PasajeroData pasajeroData;
+    private Conexion conexion;
+    private AsientoData asientoData;
+    private ArrayList<Asiento> listaAsientos;
+    
     /** Creates new form Vuelos */
     public Vuelos() {
         initComponents();
+        
+        try {
+            
+            conexion = new Conexion("jdbc:mysql://localhost/volare", "root", "");
+            modelo = new DefaultTableModel();
+            ciudadData = new CiudadData(conexion);
+            listaCiudad = ciudadData.obtenerCiudades();
+            vueloData = new VueloData(conexion);
+            pasajeroData = new PasajeroData(conexion);
+            asientoData = new AsientoData(conexion);
+            compraData = new CompraData(conexion);
+            cargarCiudades();
+            armarCabeceraTabla();
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error: "+ex.getMessage());
+        }
+        
+        
     }
 
     /** This method is called from within the constructor to
@@ -28,14 +73,13 @@ public class Vuelos extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableVuelos = new javax.swing.JTable();
-        jComboBoxDestino = new javax.swing.JComboBox<>();
-        jComboBoxOrigen = new javax.swing.JComboBox<>();
+        cbDestino = new javax.swing.JComboBox<>();
+        cbOrigen = new javax.swing.JComboBox<>();
         jButtonComprarVuelo = new javax.swing.JButton();
         jTextFieldDni = new javax.swing.JTextField();
         jPasswordCompraVuelo = new javax.swing.JPasswordField();
         jLabelSeleccionDeVuelos = new javax.swing.JLabel();
         jButtonBuscarVuelos = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabelOrigen = new javax.swing.JLabel();
@@ -44,6 +88,9 @@ public class Vuelos extends javax.swing.JInternalFrame {
         jLabelLogo = new javax.swing.JLabel();
         jLabelVueloSeleccionado = new javax.swing.JLabel();
         jlLogoBuscar = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbAsientos = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(102, 102, 255));
         setBorder(null);
@@ -59,13 +106,16 @@ public class Vuelos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableVuelos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTableVuelosFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableVuelos);
 
-        jComboBoxDestino.setFont(new java.awt.Font("Miriam", 1, 12)); // NOI18N
-        jComboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbDestino.setFont(new java.awt.Font("Miriam", 1, 12)); // NOI18N
 
-        jComboBoxOrigen.setFont(new java.awt.Font("Miriam", 1, 12)); // NOI18N
-        jComboBoxOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbOrigen.setFont(new java.awt.Font("Miriam", 1, 12)); // NOI18N
 
         jButtonComprarVuelo.setBackground(new java.awt.Color(51, 204, 0));
         jButtonComprarVuelo.setFont(new java.awt.Font("Miriam", 1, 12)); // NOI18N
@@ -74,8 +124,13 @@ public class Vuelos extends javax.swing.JInternalFrame {
         jButtonComprarVuelo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonComprarVuelo.setContentAreaFilled(false);
         jButtonComprarVuelo.setOpaque(true);
+        jButtonComprarVuelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonComprarVueloActionPerformed(evt);
+            }
+        });
 
-        jLabelSeleccionDeVuelos.setFont(new java.awt.Font("Miriam", 1, 14)); // NOI18N
+        jLabelSeleccionDeVuelos.setFont(new java.awt.Font("Myriad Pro Light", 1, 18)); // NOI18N
         jLabelSeleccionDeVuelos.setForeground(new java.awt.Color(255, 255, 255));
         jLabelSeleccionDeVuelos.setText("Busca tus vuelos por ciudad de origen y destino (fecha opcional)");
 
@@ -86,6 +141,16 @@ public class Vuelos extends javax.swing.JInternalFrame {
         jButtonBuscarVuelos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButtonBuscarVuelos.setContentAreaFilled(false);
         jButtonBuscarVuelos.setOpaque(true);
+        jButtonBuscarVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonBuscarVuelosMouseClicked(evt);
+            }
+        });
+        jButtonBuscarVuelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarVuelosActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Miriam", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,9 +174,19 @@ public class Vuelos extends javax.swing.JInternalFrame {
 
         jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/compras.png"))); // NOI18N
 
-        jLabelVueloSeleccionado.setText("jLabel4");
+        jLabelVueloSeleccionado.setFont(new java.awt.Font("Myriad Pro Light", 0, 18)); // NOI18N
+        jLabelVueloSeleccionado.setForeground(new java.awt.Color(255, 255, 255));
 
         jlLogoBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/buscar.png"))); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Myriad Pro Light", 0, 29)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/91605-200.png"))); // NOI18N
+        jLabel4.setText("asientos");
+
+        jLabel5.setFont(new java.awt.Font("Myriad Pro Light", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Disponibles :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,45 +196,57 @@ public class Vuelos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlLogoBuscar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlLogoBuscar)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(cbOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelOrigen))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelSeleccionDeVuelos)
+                                .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelDestino)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addGap(30, 30, 30)
+                                .addComponent(jButtonBuscarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(144, 144, 144))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelSeleccionDeVuelos)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelVueloSeleccionado))
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(130, 130, 130)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelLogo)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabelOrigen))
+                                        .addComponent(jLabel1)
                                         .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabelDestino))
-                                        .addGap(37, 37, 37)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonBuscarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextFieldDni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jPasswordCompraVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jTextFieldDni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addComponent(jLabel1))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButtonComprarVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabelLogo)
+                                        .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabelVueloSeleccionado)))
-                                .addGap(0, 88, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                        .addComponent(jPasswordCompraVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonComprarVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(65, 65, 65))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,59 +255,203 @@ public class Vuelos extends javax.swing.JInternalFrame {
                 .addComponent(jlLogoBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelSeleccionDeVuelos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelOrigen)
-                            .addComponent(jLabelDestino)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonBuscarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabelLogo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabelVueloSeleccionado)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabelDestino)
+                        .addComponent(jButtonBuscarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelOrigen))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextFieldDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jPasswordCompraVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(30, 30, 30))
+                    .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonComprarVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))))
+                        .addGap(48, 48, 48))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabelLogo)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jTextFieldDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jPasswordCompraVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabelVueloSeleccionado))
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cbAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonBuscarVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarVuelosActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jButtonBuscarVuelosActionPerformed
+
+    private void jButtonBuscarVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonBuscarVuelosMouseClicked
+        // TODO add your handling code here:
+        cargarDatos();
+        
+    }//GEN-LAST:event_jButtonBuscarVuelosMouseClicked
+
+    private void jTableVuelosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableVuelosFocusGained
+        // TODO add your handling code here:
+        listarAsientosVuelo();
+        cargarAsientos();
+    }//GEN-LAST:event_jTableVuelosFocusGained
+
+    private void jButtonComprarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarVueloActionPerformed
+        // TODO add your handling code here:
+        
+        Asiento asiento =(Asiento)cbAsientos.getSelectedItem();
+        String dni = jTextFieldDni.getText();
+        
+        String password=pasajeroData.obtenerPassPasajero(Integer.parseInt(dni));
+        String passwordCom= jPasswordCompraVuelo.getText();
+        if(passwordCom.equals(password)){
+            compraData.comprarAsiento(asiento);
+            compraData.generarCompra((int)jTableVuelos.getValueAt(jTableVuelos.getSelectedRow(), 0), Integer.parseInt(dni), asiento.getId());
+            this.removeAll();
+            this.repaint();
+            this.moveToFront();
+            JOptionPane.showMessageDialog(this, "La compra se ha realizado con exito!");
+        }else JOptionPane.showMessageDialog(this, "DNI y/o password incorrecto tipeo");
+        
+        
+        
+    }//GEN-LAST:event_jButtonComprarVueloActionPerformed
+
+    
+    public void listarAsientosVuelo(){
+        
+        int contAsientos=0;
+        
+        int idVuelo=(int)jTableVuelos.getValueAt(jTableVuelos.getSelectedRow(), 0);
+        
+        Vuelo vuelo = vueloData.consultarVuelo(idVuelo);
+        
+        List <Asiento> asientos =asientoData.obtenerAsientosDisponiblesAvion(vuelo.getAvion());
+        
+        contAsientos = asientos.size();
+        
+        jLabelVueloSeleccionado.setText(String.valueOf(contAsientos)); 
+        
+      }
+    
+    public void cargarAsientos(){
+        
+        int idVuelo= (int)jTableVuelos.getValueAt(jTableVuelos.getSelectedRow(), 0);
+        
+        Vuelo vuelo = vueloData.consultarVuelo(idVuelo);
+        
+        listaAsientos=(ArrayList)asientoData.obtenerAsientosDisponiblesAvion(vuelo.getAvion());
+        
+        for(Asiento item:listaAsientos){
+            cbAsientos.addItem(item);
+           }
+        
+    }
+    
+    public void cargarCiudades(){
+        
+        for(Ciudad item:listaCiudad){
+            
+            cbOrigen.addItem(item);
+            cbDestino.addItem(item);
+            
+        }
+        
+    }
+    
+    public void armarCabeceraTabla(){
+        
+        ArrayList<Object> columns = new ArrayList<Object>();
+        columns.add("ID Vuelo");
+        columns.add("Precio");
+        columns.add("Fecha de Salida");
+        columns.add("Fecha de llegada");
+        columns.add("Refuerzo");
+        /*columns.add("ID aeropuerto salida");
+        columns.add("Codigo aeropuerto");
+        columns.add("ID ciudad salida");
+        columns.add("Nombre");
+        columns.add("ID Pais salida");
+        columns.add("Nombre");
+        columns.add("Provincia salida");
+        columns.add("ID aeropuerto llegada");
+        columns.add("Codigo aeropuerto");
+        columns.add("ID ciudad llegada");
+        columns.add("Nombre");
+        columns.add("ID Pais llegada");
+        columns.add("Nombre");
+        columns.add("Provincia llegada");
+        columns.add("Estado del vuelo");*/
+        
+        for(Object it:columns){
+            
+            modelo.addColumn(it);
+            
+        }
+        jTableVuelos.setModel(modelo);
+    }
+    
+    public void borrarFilas(){
+        int a = modelo.getRowCount()-1;
+        
+        for(int i=a;i>=0;i--){
+            
+            modelo.removeRow(i);
+        }
+        
+        
+    }
+    
+    public void cargarDatos(){
+        borrarFilas();
+        
+        Ciudad ciudad =(Ciudad)cbOrigen.getSelectedItem();
+        
+        Ciudad ciudadDes =(Ciudad)cbDestino.getSelectedItem();
+        
+        listaVuelos =(ArrayList)vueloData.consultarVuelos(ciudad,ciudadDes);
+        
+        for(Vuelo v:listaVuelos){
+            
+            modelo.addRow(new Object []{v.getId(),v.getPrecio(),v.getFechaSalida(),v.getFechaLlegada(),v.isRefuerzo()});
+            
+        }
+        
+        
+        
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Asiento> cbAsientos;
+    private javax.swing.JComboBox<Ciudad> cbDestino;
+    private javax.swing.JComboBox<Ciudad> cbOrigen;
     private javax.swing.JButton jButtonBuscarVuelos;
     private javax.swing.JButton jButtonComprarVuelo;
-    private javax.swing.JComboBox<String> jComboBoxDestino;
-    private javax.swing.JComboBox<String> jComboBoxOrigen;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelDestino;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JLabel jLabelOrigen;
