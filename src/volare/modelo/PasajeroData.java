@@ -108,7 +108,6 @@ public class PasajeroData extends Data {
                 pasajero.setCorreoElectronico(rs.getString("correo_pasajero"));
                 pasajero.setPassword(rs.getString("password_pasajero"));
                 pasajero.setFechaNacimiento(rs.getDate("fechanacimiento_pasajero").toLocalDate());
-                pasajero.setNumeroTarjeta(rs.getInt("tarjeta_pasajero"));
                 pasajero.setPasaporte(rs.getInt("pasaporte_pasajero"));
                 pasajero.setDni(dni);
             }

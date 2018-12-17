@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import volare.modelo.Asiento;
+import volare.modelo.AsientoData;
 import volare.modelo.Compra;
 import volare.modelo.CompraData;
 import volare.modelo.Conexion;
@@ -20,9 +23,10 @@ import volare.modelo.PasajeroData;
  */
 public class Compras extends javax.swing.JInternalFrame {
     
-    
+    private DefaultTableModel modelo;
     private CompraData compraData;
     private PasajeroData pasajeroData;
+    private AsientoData asientoData;
     private ArrayList<Compra> listaDeCompras;
     private Conexion conexion;
 
@@ -31,6 +35,19 @@ public class Compras extends javax.swing.JInternalFrame {
      */
     public Compras() {
         initComponents();
+        
+        try {
+            modelo = new DefaultTableModel(); 
+            conexion = new Conexion("jdbc:mysql://localhost/volare", "root", "");
+            compraData = new CompraData(conexion);
+            pasajeroData = new PasajeroData(conexion);
+            asientoData = new AsientoData(conexion);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Compras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        armarCabecera();
+        
         }
         
     /**
@@ -45,7 +62,7 @@ public class Compras extends javax.swing.JInternalFrame {
         jtDniCompras = new javax.swing.JTextField();
         jpCompras = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtCompras = new javax.swing.JTable();
         jLabelComprasIngreso = new javax.swing.JLabel();
         jButtonIngresarCompras = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -57,7 +74,7 @@ public class Compras extends javax.swing.JInternalFrame {
         setBorder(null);
         setPreferredSize(new java.awt.Dimension(488, 399));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -68,7 +85,7 @@ public class Compras extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtCompras);
 
         jLabelComprasIngreso.setFont(new java.awt.Font("Myriad Pro Light", 1, 18)); // NOI18N
         jLabelComprasIngreso.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,6 +111,11 @@ public class Compras extends javax.swing.JInternalFrame {
         btnCancelar.setContentAreaFilled(false);
         btnCancelar.setEnabled(false);
         btnCancelar.setOpaque(true);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jlDni.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jlDni.setForeground(new java.awt.Color(255, 255, 255));
@@ -160,8 +182,8 @@ public class Compras extends javax.swing.JInternalFrame {
                             .addComponent(jlPassword)))
                     .addComponent(jButtonIngresarCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(cbControl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +201,7 @@ public class Compras extends javax.swing.JInternalFrame {
 
     private void jButtonIngresarComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarComprasActionPerformed
         // TODO add your handling code here:
-        /*String dni = jtDniCompras.getText();
+        String dni = jtDniCompras.getText();
         
         String passwordCon =jpCompras.getText();
         
@@ -187,24 +209,60 @@ public class Compras extends javax.swing.JInternalFrame {
         
         if(passwordCon.equals(password)){
             
-            JOptionPane.showMessageDialog(this, "bien");
+            listaDeCompras =(ArrayList)compraData.consultarCompras(Integer.parseInt(dni));
+            
+            for(Compra c:listaDeCompras){
+                modelo.addRow(new Object[]{c.getId(),c.getFechaReserva(),c.getPasajero().getDni(),c.getAsiento().getNumero()});
+                
+            }
             
             
-        }else JOptionPane.showMessageDialog(this, "MAL");
-        */
+        }else JOptionPane.showMessageDialog(this, "DNI y/o password incorrecto");
+        
     }//GEN-LAST:event_jButtonIngresarComprasActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        
+        int id = compraData.idAsientoCompra((int) jtCompras.getValueAt(jtCompras.getSelectedRow(), 0));
+        int idCompra =(int) jtCompras.getValueAt(jtCompras.getSelectedRow(), 0);
+        compraData.desocuparAsiento(id);
+        compraData.cancelarCompra(idCompra);
+        this.removeAll();
+        this.repaint();
+        this.moveToFront();
+        JOptionPane.showMessageDialog(this, "La compra se cancelo exitosamente");
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
+
+    public void armarCabecera(){
+        
+        ArrayList<Object> columns = new ArrayList<Object>();
+        columns.add("ID");
+        columns.add("Fecha Reserva");
+        columns.add("DNI pasajero");
+        columns.add("Asiento");
+        
+        for(Object it:columns){
+            
+            modelo.addColumn(it);
+            
+        }
+        jtCompras.setModel(modelo);
+        
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JCheckBox cbControl;
     private javax.swing.JButton jButtonIngresarCompras;
     private javax.swing.JLabel jLabelComprasIngreso;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlDni;
     private javax.swing.JLabel jlPassword;
     private javax.swing.JPasswordField jpCompras;
+    private javax.swing.JTable jtCompras;
     private javax.swing.JTextField jtDniCompras;
     // End of variables declaration//GEN-END:variables
 }

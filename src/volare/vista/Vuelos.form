@@ -51,8 +51,6 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabelDestino" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jButtonBuscarVuelos" min="-2" pref="116" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
                           </Group>
@@ -113,7 +111,6 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelDestino" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonBuscarVuelos" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
@@ -183,6 +180,7 @@
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTableVuelosFocusGained"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableVuelosMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -249,7 +247,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Busca tus vuelos por ciudad de origen y destino (fecha opcional)"/>
+        <Property name="text" type="java.lang.String" value="Busca tus vuelos por ciudad de origen y destino "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonBuscarVuelos">
@@ -319,17 +317,6 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Destino"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Miriam" size="14" style="0"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Fecha de Salida"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelLogo">

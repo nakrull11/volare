@@ -72,12 +72,16 @@ public class Volare {
        
         //System.out.println(ciudadData.obtenerCiudades());
        
-        List <Pasajero> pasajeros = pasajeroData.obtenerPasajeros();
+        //List <Pasajero> pasajeros = pasajeroData.obtenerPasajeros();
         
-        contador = pasajeros.size();
+        //contador = pasajeros.size();
         
-        System.out.println(contador);
+        //System.out.println(contador);
         
+        
+        //System.out.println(avionData.obtenerAvion(1));
+        //System.out.println(asientoData.obtenerAsiento(1));
+        System.out.println(compraData.consultarCompras(37723905)); 
         
         
         
@@ -86,10 +90,10 @@ public class Volare {
        
        //Avion boeing = new Avion();
        //boeing = avionData.obtenerAvion(1);
-       Ciudad sanLuis = new Ciudad();
-       sanLuis = ciudadData.obtenerCiudad(1);
-       Ciudad laPaz = new Ciudad ();
-       laPaz = ciudadData.obtenerCiudad(4);
+       //Ciudad sanLuis = new Ciudad();
+       //sanLuis = ciudadData.obtenerCiudad(1);
+       //Ciudad laPaz = new Ciudad ();
+       //laPaz = ciudadData.obtenerCiudad(4);
        //System.out.println(aeropuertoData.idAeropuertoCiudad(laPaz));
        
        //System.out.println(vueloData.consultarVuelos(sanLuis, laPaz));

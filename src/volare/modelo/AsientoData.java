@@ -21,12 +21,13 @@ import java.util.logging.Logger;
  */
 public class AsientoData {
     private Connection connection;
-    
+    private AvionData avionData=null;
     public AsientoData(Conexion conexion){
         try {
             connection = conexion.getConexion();
+            //avionData = new AvionData(conexion);
         } catch (SQLException ex) {
-            System.out.println("Error al establecer la conexión");
+            System.out.println("Error al establecer la conexión: "+ex.getMessage());
         }
     }
     
@@ -81,7 +82,7 @@ public class AsientoData {
     }
     
     
-    /*public Asiento obtenerAsiento(int id){
+    public Asiento obtenerAsiento(int id){
         Asiento asiento = null;
         try {
             
@@ -94,8 +95,8 @@ public class AsientoData {
                 asiento.setEstado(rs.getBoolean("estado_asiento"));
                 asiento.setNumero(rs.getString("numero_asiento"));
                 asiento.setPasillo(rs.getBoolean("pasillo_asiento"));
-                Avion avion = avionData.obtenerAvion(rs.getInt("id_avion"));
-                asiento.setIdAvion(avion);
+                //Avion avion = avionData.obtenerAvion(rs.getInt("id_avion"));
+                //asiento.setIdAvion(avion);
                 asiento.setId(rs.getInt("id_asiento"));                            
             }
         } catch (SQLException ex) {
@@ -104,7 +105,11 @@ public class AsientoData {
         
         return asiento;      
         
-    }*/
+    }
+    
+    
+    
+    
     
     
 }

@@ -84,7 +84,6 @@ public class Vuelos extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabelOrigen = new javax.swing.JLabel();
         jLabelDestino = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabelLogo = new javax.swing.JLabel();
         jLabelVueloSeleccionado = new javax.swing.JLabel();
         jlLogoBuscar = new javax.swing.JLabel();
@@ -111,6 +110,11 @@ public class Vuelos extends javax.swing.JInternalFrame {
                 jTableVuelosFocusGained(evt);
             }
         });
+        jTableVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableVuelosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableVuelos);
 
         cbDestino.setFont(new java.awt.Font("Miriam", 1, 12)); // NOI18N
@@ -132,7 +136,7 @@ public class Vuelos extends javax.swing.JInternalFrame {
 
         jLabelSeleccionDeVuelos.setFont(new java.awt.Font("Myriad Pro Light", 1, 18)); // NOI18N
         jLabelSeleccionDeVuelos.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelSeleccionDeVuelos.setText("Busca tus vuelos por ciudad de origen y destino (fecha opcional)");
+        jLabelSeleccionDeVuelos.setText("Busca tus vuelos por ciudad de origen y destino ");
 
         jButtonBuscarVuelos.setBackground(new java.awt.Color(51, 204, 0));
         jButtonBuscarVuelos.setFont(new java.awt.Font("Miriam", 1, 14)); // NOI18N
@@ -167,10 +171,6 @@ public class Vuelos extends javax.swing.JInternalFrame {
         jLabelDestino.setFont(new java.awt.Font("Miriam", 0, 14)); // NOI18N
         jLabelDestino.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDestino.setText("Destino");
-
-        jLabel3.setFont(new java.awt.Font("Miriam", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Fecha de Salida");
 
         jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/volare/vista/img/buttons/compras.png"))); // NOI18N
 
@@ -212,8 +212,6 @@ public class Vuelos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelDestino)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
-                                .addGap(30, 30, 30)
                                 .addComponent(jButtonBuscarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(144, 144, 144))))
                     .addGroup(layout.createSequentialGroup()
@@ -258,7 +256,6 @@ public class Vuelos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
                         .addComponent(jLabelDestino)
                         .addComponent(jButtonBuscarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelOrigen))
@@ -311,8 +308,8 @@ public class Vuelos extends javax.swing.JInternalFrame {
 
     private void jTableVuelosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTableVuelosFocusGained
         // TODO add your handling code here:
-        listarAsientosVuelo();
-        cargarAsientos();
+        //listarAsientosVuelo();
+        //cargarAsientos();
     }//GEN-LAST:event_jTableVuelosFocusGained
 
     private void jButtonComprarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarVueloActionPerformed
@@ -336,6 +333,14 @@ public class Vuelos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButtonComprarVueloActionPerformed
 
+    private void jTableVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVuelosMouseClicked
+        // TODO add your handling code here:
+        cbAsientos.removeAllItems();
+        listarAsientosVuelo();
+        cargarAsientos();
+        
+    }//GEN-LAST:event_jTableVuelosMouseClicked
+
     
     public void listarAsientosVuelo(){
         
@@ -355,7 +360,7 @@ public class Vuelos extends javax.swing.JInternalFrame {
     
     public void cargarAsientos(){
         
-        int idVuelo= (int)jTableVuelos.getValueAt(jTableVuelos.getSelectedRow(), 0);
+        int idVuelo=(int)jTableVuelos.getValueAt(jTableVuelos.getSelectedRow(), 0);
         
         Vuelo vuelo = vueloData.consultarVuelo(idVuelo);
         
@@ -449,7 +454,6 @@ public class Vuelos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonComprarVuelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelDestino;

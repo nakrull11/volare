@@ -76,14 +76,40 @@ public class CompraData{
     }
     
     
+    public void cancelarCompra(int id){
+        try {
+            String sql ="DELETE FROM compra WHERE id_compra = ? ;";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CompraData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
-    /*public List<Compra> consultarCompras(int dni){               
+    public void desocuparAsiento(int id){
+        try {
+            String sql = "UPDATE asiento SET estado_asiento = ? WHERE id_asiento= ? ;";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setBoolean(1, false);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CompraData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+    public List<Compra> consultarCompras(int dni){               
         
         List<Compra> compras = new ArrayList<>();
         try {
             
             
-            String sql="SELECT * FROM compras WHERE compras.dni_pasajero = ?;";
+            String sql="SELECT * FROM compra WHERE compra.dni_pasajero = ?;";
             PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
@@ -92,8 +118,8 @@ public class CompraData{
                 compra.setEstado(rs.getString("estado_compra"));
                 compra.setFechaReserva(rs.getDate("fecha_reserva"));
                 compra.setId(rs.getInt("id_compra"));
-                //Asiento asiento = asientoData.obtenerAsiento(rs.getInt("id_asiento"));
-                //compra.setNumeroAsiento(asiento);
+                Asiento asiento = asientoData.obtenerAsiento(rs.getInt("id_asiento"));
+                compra.setNumeroAsiento(asiento);
                 Vuelo vuelo = vueloData.consultarVuelo(rs.getInt("id_vuelo"));
                 compra.setVuelo(vuelo);
                 Pasajero pasajero = pasajeroData.obtenerPasajero(dni);
@@ -107,6 +133,28 @@ public class CompraData{
         }
         
         return compras;
-    }*/
+    }
+    
+    
+    public int idAsientoCompra(int id){
+        int idRes = -1;
+        try {
+            
+            String sql ="SELECT id_asiento FROM compra WHERE id_compra = ? ;";
+            PreparedStatement ps = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                idRes = rs.getInt("id_asiento");
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(CompraData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return idRes;
+            
+    
+    
+    }
     
 }
