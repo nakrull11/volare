@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2018 a las 14:32:49
+-- Tiempo de generación: 17-12-2018 a las 14:54:04
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -262,7 +262,9 @@ INSERT INTO `vuelo` (`id_vuelo`, `precio_vuelo`, `fechasalida_vuelo`, `fechalleg
 (3, 7500, '2018-12-15 20:58:08', '2018-12-17 19:00:00', NULL, 'normal', 1, 6, 1),
 (4, 8500, '2018-12-17 05:40:39', '2018-12-19 13:00:00', b'0', 'normal', 1, 6, 4),
 (5, 9500, '2018-12-17 06:00:24', '2018-12-19 16:00:00', b'0', 'normal', 5, 1, 4),
-(6, 5200, '2018-12-17 06:00:24', '2018-12-19 16:00:00', b'0', 'normal', 4, 5, 4);
+(6, 5200, '2018-12-17 06:00:24', '2018-12-19 16:00:00', b'0', 'normal', 4, 5, 4),
+(7, 4500, '2018-12-18 17:00:00', '2018-12-19 13:00:00', b'0', 'normal', 4, 1, 4),
+(8, 3600, '2018-12-18 13:00:00', '2018-12-19 12:00:00', b'0', 'normal', 4, 6, 4);
 
 --
 -- Índices para tablas volcadas
@@ -389,7 +391,7 @@ ALTER TABLE `provincia`
 -- AUTO_INCREMENT de la tabla `vuelo`
 --
 ALTER TABLE `vuelo`
-  MODIFY `id_vuelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_vuelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
