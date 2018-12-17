@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2018 a las 07:42:30
+-- Tiempo de generación: 17-12-2018 a las 14:32:49
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -155,27 +155,6 @@ CREATE TABLE `compra` (
   `dni_pasajero` int(11) NOT NULL,
   `id_asiento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `estado`
---
-
-CREATE TABLE `estado` (
-  `id_estado` tinyint(4) NOT NULL,
-  `disponibilidad` tinytext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `estado`
---
-
-INSERT INTO `estado` (`id_estado`, `disponibilidad`) VALUES
-(1, 'Retrasado'),
-(2, 'Cancelado'),
-(3, 'Reembolso'),
-(4, 'Normal');
 
 -- --------------------------------------------------------
 
@@ -333,12 +312,6 @@ ALTER TABLE `compra`
   ADD KEY `numero_pasaporte` (`dni_pasajero`) USING BTREE;
 
 --
--- Indices de la tabla `estado`
---
-ALTER TABLE `estado`
-  ADD PRIMARY KEY (`id_estado`);
-
---
 -- Indices de la tabla `pais`
 --
 ALTER TABLE `pais`
@@ -398,13 +371,7 @@ ALTER TABLE `ciudad`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de la tabla `estado`
---
-ALTER TABLE `estado`
-  MODIFY `id_estado` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pais`
